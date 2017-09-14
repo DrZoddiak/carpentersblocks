@@ -1,6 +1,5 @@
 package com.carpentersblocks.renderer;
 
-import com.carpentersblocks.CarpentersBlocks;
 import com.carpentersblocks.Reference;
 import com.carpentersblocks.renderer.model.ModelBlock;
 import com.carpentersblocks.renderer.model.ModelCollapsible;
@@ -42,6 +41,5 @@ public class ModelLoader implements ICustomModelLoader
     private boolean isModel(ResourceLocation resourceLocation, String registryName) 
     {
     	return resourceLocation.getResourceDomain().equals( MOD_ID) && registryName.equals(resourceLocation.getResourcePath());
-    }
-    
+    } 
 }

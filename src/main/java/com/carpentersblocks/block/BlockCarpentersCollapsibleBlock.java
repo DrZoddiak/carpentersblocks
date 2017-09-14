@@ -8,6 +8,7 @@ import static com.carpentersblocks.util.block.CollapsibleUtil.QUAD_XZPP;
 import java.util.Arrays;
 import java.util.List;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.block.types.BlockFacing;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.block.CollapsibleUtil;
@@ -33,9 +34,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockCarpentersCollapsibleBlock extends BlockFacing {
-
-    public BlockCarpentersCollapsibleBlock(Material material) {
+public class BlockCarpentersCollapsibleBlock extends BlockFacing 
+{ 
+    public BlockCarpentersCollapsibleBlock(Material material) 
+    {
         super(material);
         setLightOpacity(0);
         setSoundType(SoundType.WOOD);
@@ -75,7 +77,7 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
      */
     protected void damageItemWithChance(World world, EntityPlayer entityPlayer, EnumHand hand) 
     {
-        if (world.rand.nextFloat() <= ItemRegistry.itemHammerDamageChanceFromCollapsible)
+        if (world.rand.nextFloat() <= Reference.itemHammerDamageChanceFromCollapsible)
         {
             super.damageItemWithChance(world, entityPlayer, hand);
         }
@@ -149,6 +151,7 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
                 	util.setQuadDepth(cbTileEntity_ZN, QUAD_XZPP, depth);
                 }
                 break;
+                
             case QUAD_XZPP:
                 if (cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP)) 
                 {
@@ -177,6 +180,7 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
         {
         	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
 	        float maxDepth = util.getBoundsMaxDepth();
+	        
 	        if (util.isPositive())
 	        {
 	            return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, maxDepth, 1.0F);
@@ -199,7 +203,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
         if (cbTileEntity != null) 
         {
         	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
-	        if (isBlockSolid(blockAccess, blockPos, facing)) {
+	        if (isBlockSolid(blockAccess, blockPos, facing)) 
+	        {
 	            return util.isSideSolid(facing);
 	        }
         }
@@ -288,7 +293,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
         if (!canAttachToFacing(facing)) 
         {
             EnumFacing.Plane plane = EnumFacing.Plane.VERTICAL;
-            for (EnumFacing dir : plane.facings()) {
+            for (EnumFacing dir : plane.facings())
+            {
             	if (world.isSideSolid(blockPos.offset(dir.getOpposite()), dir))
             	{
             		return true;

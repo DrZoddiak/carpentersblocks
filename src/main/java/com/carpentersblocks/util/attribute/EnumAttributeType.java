@@ -36,6 +36,5 @@ public enum EnumAttributeType
     public static EnumAttributeType valueOf(int value)
     {
         return map.get(value);
-    }
-	
+    } 
 }

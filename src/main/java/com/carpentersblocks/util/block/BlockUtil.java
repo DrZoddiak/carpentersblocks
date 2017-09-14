@@ -31,35 +31,44 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class BlockUtil {
-
+public class BlockUtil 
+{ 
     /**
      * Takes an ItemStack and returns block, or air block if ItemStack
      * does not contain a block.
      */
-    public static Block toBlock(ItemStack itemStack) {
-        if (itemStack != null && itemStack.getItem() instanceof ItemBlock) {
+    public static Block toBlock(ItemStack itemStack)
+    {
+        if (itemStack != null && itemStack.getItem() instanceof ItemBlock)
+        {
             return Block.getBlockFromItem(itemStack.getItem());
-        } else {
+        }
+        else 
+        {
             return Blocks.AIR;
         }
     }
     
-    public static boolean validateBlockState(IBlockState blockState) {
+    public static boolean validateBlockState(IBlockState blockState)
+    {
     	return  blockState != null &&
     			blockState instanceof IExtendedBlockState &&
     			((IExtendedBlockState)blockState).getUnlistedProperties().containsKey(Property.CB_METADATA) &&
     			((IExtendedBlockState)blockState).getValue(Property.CB_METADATA) != null;
     }
     
-    public static IBlockState getAttributeBlockState(AttributeHelper helper, AbstractAttribute attribute) {
+    public static IBlockState getAttributeBlockState(AttributeHelper helper, AbstractAttribute attribute)
+    {
     	return getAttributeBlockState(helper, attribute.getLocation(), attribute.getType());
     }
     
-    public static IBlockState getAttributeBlockState(AttributeHelper helper, EnumAttributeLocation location, EnumAttributeType type) {
-    	if (helper.hasAttribute(location, type)) {
+    public static IBlockState getAttributeBlockState(AttributeHelper helper, EnumAttributeLocation location, EnumAttributeType type) 
+    {
+    	if (helper.hasAttribute(location, type)) 
+    	{
     		AbstractAttribute attribute = helper.getAttribute(location, type);
-    		if (attribute instanceof AttributeItemStack) {
+    		if (attribute instanceof AttributeItemStack) 
+    		{
 	    		ItemStack itemStack = ((AttributeItemStack)attribute).getModel();
 	    		return getBlockState(itemStack);
     		}
@@ -67,7 +76,8 @@ public class BlockUtil {
     	return null;
     }
     
-    public static IBlockState getBlockState(ItemStack itemStack) {
+    public static IBlockState getBlockState(ItemStack itemStack)
+    {
 		Block block = Block.getBlockFromItem(itemStack.getItem());
 		return block != null ? block.getStateFromMeta(itemStack.getMetadata()) : null;
     }
@@ -80,11 +90,15 @@ public class BlockUtil {
      * @param itemStack the {@link ItemStack}
      * @return an {@link ItemStack} that is safe from throwing casting crashes during {@link Block} calls
      */
-    public static ItemStack getCallableItemStack(ItemStack itemStack) {
+    public static ItemStack getCallableItemStack(ItemStack itemStack) 
+    {
     	IBlockState blockState = getBlockState(itemStack);
-        if (blockState.getBlock() instanceof BlockCoverable || blockState.getBlock() instanceof IWrappableBlock) {
+        if (blockState.getBlock() instanceof BlockCoverable || blockState.getBlock() instanceof IWrappableBlock) 
+        {
             return itemStack;
-        } else {
+        } 
+        else
+        {
             return blockState.getBlock().hasTileEntity(blockState) ? new ItemStack(Blocks.PLANKS) : itemStack;
         }
     }
@@ -116,7 +130,8 @@ public class BlockUtil {
         return itemStack != null ? itemStack : new ItemStack(cbTileEntity.getBlockType());
     }
     
-    public static EnumAttributeLocation getAttributeLocationForFacing(CbTileEntity cbTileEntity, EnumFacing facing) {
+    public static EnumAttributeLocation getAttributeLocationForFacing(CbTileEntity cbTileEntity, EnumFacing facing)
+    {
     	return cbTileEntity.getAttributeHelper().hasAttribute(EnumAttributeLocation.valueOf(facing.ordinal()), EnumAttributeType.COVER) ? EnumAttributeLocation.valueOf(facing.ordinal()) : EnumAttributeLocation.HOST;
     }
     
@@ -130,27 +145,32 @@ public class BlockUtil {
      * @param facing the facing
      * @return
      */
-    public static ItemStack getFeatureSensitiveSideItemStack(CbTileEntity cbTileEntity, EnumFacing facing) {
+    public static ItemStack getFeatureSensitiveSideItemStack(CbTileEntity cbTileEntity, EnumFacing facing)
+    {
         ItemStack itemStack = null;
         EnumAttributeLocation location = cbTileEntity.getAttributeHelper().hasAttribute(EnumAttributeLocation.valueOf(facing.ordinal()), EnumAttributeType.COVER) ? EnumAttributeLocation.valueOf(facing.ordinal()) : EnumAttributeLocation.HOST;
         
         // Check for overlay
-        if (cbTileEntity.getAttributeHelper().hasAttribute(EnumAttributeLocation.valueOf(facing.ordinal()), EnumAttributeType.OVERLAY)) {
+        if (cbTileEntity.getAttributeHelper().hasAttribute(EnumAttributeLocation.valueOf(facing.ordinal()), EnumAttributeType.OVERLAY)) 
+        {
             Overlay overlay = OverlayHandler.getOverlayType(((AttributeItemStack)cbTileEntity.getAttributeHelper().getAttribute(location, EnumAttributeType.OVERLAY)).getModel());
-            if (OverlayHandler.coversFullSide(overlay, facing)) {
+            if (OverlayHandler.coversFullSide(overlay, facing))
+            {
                 itemStack = overlay.getItemStack();
             }
         }
         
         // Check for side cover
-        if (itemStack == null) {
+        if (itemStack == null) 
+        {
             itemStack = getCover(cbTileEntity, location);
         }
 
         return itemStack;
     }
     
-    public static TextureAtlasSprite getParticleTexture(ItemStack itemStack) {
+    public static TextureAtlasSprite getParticleTexture(ItemStack itemStack) 
+    {
     	IBakedModel itemModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(itemStack);
     	return itemModel.getParticleTexture();
     }
@@ -158,8 +178,10 @@ public class BlockUtil {
     /**
      * Returns whether block is a cover.
      */
-    public static boolean isCover(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof ItemBlock && !isOverlay(itemStack)) {
+    public static boolean isCover(ItemStack itemStack)
+    {
+        if (itemStack.getItem() instanceof ItemBlock && !isOverlay(itemStack))
+        {
             Block block = toBlock(itemStack);
             IBlockState blockState = block.getStateFromMeta(itemStack.getItemDamage());
             return block.isFullCube(blockState) ||
@@ -178,10 +200,14 @@ public class BlockUtil {
      *
      * @return <code>true</code> if {@link ItemStack} contains dustGlowstone ore name
      */
-    public static boolean isIlluminator(ItemStack itemStack) {
-        if (itemStack != null) {
-            for (int Id : OreDictionary.getOreIDs(itemStack)) {
-                if (OreDictionary.getOreName(Id).equals("dustGlowstone")) {
+    public static boolean isIlluminator(ItemStack itemStack) 
+    {
+        if (itemStack != null) 
+        {
+            for (int Id : OreDictionary.getOreIDs(itemStack)) 
+            {
+                if (OreDictionary.getOreName(Id).equals("dustGlowstone"))
+                {
                     return true;
                 }
             }
@@ -192,7 +218,8 @@ public class BlockUtil {
     /**
      * Returns true if ItemStack is a dye.
      */
-    public static boolean isDye(ItemStack itemStack, boolean allowWhite) {
+    public static boolean isDye(ItemStack itemStack, boolean allowWhite) 
+    {
         return itemStack.getItem() != null &&
                DyeHandler.isDye(itemStack, allowWhite);
     }
@@ -200,7 +227,8 @@ public class BlockUtil {
     /**
      * Returns whether ItemStack contains a valid overlay item or block.
      */
-    public static boolean isOverlay(ItemStack itemStack) {
+    public static boolean isOverlay(ItemStack itemStack) 
+    {
         return OverlayHandler.overlayMap.containsKey(itemStack.getDisplayName()) ||
                OverlayHandler.overlayMap.containsKey(ChatHandler.getDefaultTranslation(itemStack));
     }
@@ -212,17 +240,21 @@ public class BlockUtil {
      * @param  name the OreDictionary name to check against
      * @return the first matching OreDictionary name, otherwise blank string
      */
-    public static String getOreDictMatch(ItemStack itemStack, String ... name) {
-        if (itemStack != null) {
-            for (int Id : OreDictionary.getOreIDs(itemStack)) {
-                for (String oreName : name) {
-                    if (OreDictionary.getOreName(Id).equals(oreName)) {
+    public static String getOreDictMatch(ItemStack itemStack, String ... name) 
+    {
+        if (itemStack != null) 
+        {
+            for (int Id : OreDictionary.getOreIDs(itemStack)) 
+            {
+                for (String oreName : name)
+                {
+                    if (OreDictionary.getOreName(Id).equals(oreName))
+                    {
                         return oreName;
                     }
                 }
             }
         }
         return "";
-    }
-    
+    } 
 }

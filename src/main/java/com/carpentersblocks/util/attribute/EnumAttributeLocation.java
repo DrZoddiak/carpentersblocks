@@ -32,6 +32,5 @@ public enum EnumAttributeLocation
     public static EnumAttributeLocation valueOf(int value) 
     {
         return map.get(value);
-    }
-	
-}
+    } 
+} 

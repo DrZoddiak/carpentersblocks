@@ -8,18 +8,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockCarpentersBed extends BlockBed
-{
-
-	public BlockCarpentersBed(Material material) {
-		super(); 
-		// TODO Auto-generated constructor stub
+{ 
+	public BlockCarpentersBed(Material material) 
+	{
+		super();  
 	} 
 	
 	@Override
-	public boolean isBed(IBlockState state, IBlockAccess world, BlockPos pos, Entity player) {
-		// TODO Auto-generated method stub
+	public boolean isBed(IBlockState state, IBlockAccess world, BlockPos pos, Entity player) 
+	{ 
 		return true;
-	}
-	
-	
+	} 
 }

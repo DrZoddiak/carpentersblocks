@@ -8,21 +8,15 @@ import net.minecraft.world.World;
 public class BlockCarpentersButton extends BlockButton
 {
 
-	public BlockCarpentersButton(boolean wooden) {
-		super(wooden);
-		// TODO Auto-generated constructor stub
+	public BlockCarpentersButton(boolean wooden) 
+	{
+		super(wooden); 
 	}
 
 	@Override
-	protected void playClickSound(EntityPlayer player, World worldIn, BlockPos pos) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void playClickSound(EntityPlayer player, World worldIn, BlockPos pos) {}
 
 	@Override
-	protected void playReleaseSound(World worldIn, BlockPos pos) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void playReleaseSound(World worldIn, BlockPos pos) {}
 
 }

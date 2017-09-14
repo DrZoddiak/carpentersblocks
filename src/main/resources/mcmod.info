@@ -1,14 +1,14 @@
 [
 {
-  "modid": "CarpentersBlocks",
+  "modid": "carpentersblocks",
   "name": "Carpenter's Blocks",
   "description": "Adds slopes and a variety of vanilla-inspired blocks that support covers, side covers, overlays, dyes and chiseled patterns.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "www.carpentersblocks.com",
+  "url": "",
   "updateUrl": "",
-  "authorList": [ "Mineshopper" ],
-  "credits": "",
+  "authorList": [ "§4Burpingdog1" ],
+  "credits": "Mineshopper",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

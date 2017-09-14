@@ -32,8 +32,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import static com.carpentersblocks.Reference.*;
 @SideOnly(Side.CLIENT)
-public class CarpentersBlocksCachedResources extends DummyModContainer {
-
+public class CarpentersBlocksCachedResources extends DummyModContainer 
+{ 
     public final static CarpentersBlocksCachedResources INSTANCE = new CarpentersBlocksCachedResources();
     private String MODID = "CarpentersBlocksCachedResources";
     private String resourceDir = FilenameUtils.normalizeNoEndSeparator(Minecraft.getMinecraft().mcDataDir.getAbsolutePath()) + File.separator + "mods" + File.separator + MOD_ID.toLowerCase();
@@ -42,7 +42,8 @@ public class CarpentersBlocksCachedResources extends DummyModContainer {
     private final int RESOURCE_PATH  = 0;
     private final int RESOURCE_IMAGE = 1;
 
-    private CarpentersBlocksCachedResources() {
+    private CarpentersBlocksCachedResources()
+    {
         super(new ModMetadata());
         ModMetadata meta = getMetadata();
         meta.modId = MODID;
@@ -53,75 +54,96 @@ public class CarpentersBlocksCachedResources extends DummyModContainer {
     /**
      * Initializes
      */
-    public void init() {
+    public void init() 
+    {
         FMLClientHandler.instance().addModAsResource(this);
 
         // Add resource pack to global list without triggering a full refresh
         ((SimpleReloadableResourceManager)Minecraft.getMinecraft().getResourceManager()).reloadResourcePack(FMLClientHandler.instance().getResourcePackFor(MODID));
     }
 
-    public static class DynamicFileResourcePack extends FMLFileResourcePack {
+    public static class DynamicFileResourcePack extends FMLFileResourcePack 
+    {
 
-        public DynamicFileResourcePack(ModContainer container) {
+        public DynamicFileResourcePack(ModContainer container)
+        {
             super(container);
         }
 
-        public ZipFile getResourcePackZipFile() {
-            if (resourcePackZipFile == null) {
+        public ZipFile getResourcePackZipFile()
+        {
+            if (resourcePackZipFile == null)
+            {
                 INSTANCE.rebuildCache();
             }
             return resourcePackZipFile;
         }
 
         @Override
-        protected InputStream getInputStreamByName(String resourceName) throws IOException {
+        protected InputStream getInputStreamByName(String resourceName) throws IOException
+        {
             ZipFile zipfile = getResourcePackZipFile();
             ZipEntry zipentry = zipfile.getEntry(resourceName);
-            try {
-                if ("pack.mcmeta".equals(resourceName)) {
+            try
+            {
+                if ("pack.mcmeta".equals(resourceName)) 
+                {
                     return new ByteArrayInputStream(("{\n"+" \"pack\": {\n"+"   \"description\": \"dummy FML pack for "+getPackName()+"\",\n"+"   \"pack_format\": 1\n"+"}\n" + "}").getBytes(Charsets.UTF_8));
-                } else {
+                } 
+                else
+                {
                     return zipfile.getInputStream(zipentry);
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new ResourcePackFileNotFoundException(resourcePackFile, resourceName);
             }
         }
 
         @Override
-        public boolean hasResourceName(String resourceName) {
+        public boolean hasResourceName(String resourceName) 
+        {
             return getResourcePackZipFile().getEntry(resourceName) != null;
         }
 
     }
 
     @Override
-    public File getSource() {
+    public File getSource()
+    {
         return new File(resourceDir, MODID + ".zip");
     }
 
     @Override
-    public Class<?> getCustomResourcePackClass() {
+    public Class<?> getCustomResourcePackClass()
+    {
         return DynamicFileResourcePack.class;
     }
 
     /**
      * Adds a resource to list to be added to resource pack.
      */
-    public void addResource(String path, BufferedImage bufferedImage) {
+    public void addResource(String path, BufferedImage bufferedImage) 
+    {
         resources.add(new Object[] { path, bufferedImage });
     }
 
     /**
      * Creates final resource pack zip file.
      */
-    private void createResourceZipFile() {
-        try {
-            if (createDirectory()) {
+    private void createResourceZipFile()
+    {
+        try 
+        {
+            if (createDirectory()) 
+            {
                 createZip(resourceDir, MODID + ".zip");
                 resourcePackZipFile = new ZipFile(getSource());
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             ModLogger.log(Level.WARN, "Cache rebuild failed: " + e.getMessage());
         }
     }
@@ -129,7 +151,8 @@ public class CarpentersBlocksCachedResources extends DummyModContainer {
     /**
      * Creates directory for resource file.
      */
-    private boolean createDirectory()  {
+    private boolean createDirectory() 
+    {
         File dir = new File(resourceDir);
         if (!dir.exists()) {
             dir.mkdir();
@@ -140,22 +163,32 @@ public class CarpentersBlocksCachedResources extends DummyModContainer {
     /**
      * Creates resource zip file.
      */
-    private void createZip(String dir, String fileName) {
+    private void createZip(String dir, String fileName)
+    {
     	File file = null;
     	ZipOutputStream out = null;
-    	try {
+    	try 
+    	{
 	        file = new File(dir, fileName);
 	        out = new ZipOutputStream(new FileOutputStream(file));
-	        for (Object[] object : resources) {
+	        for (Object[] object : resources) 
+	        {
 	            out.putNextEntry(new ZipEntry("assets/" + MODID.toLowerCase() + (String) object[RESOURCE_PATH] + ".png"));
 	            ImageIO.write((BufferedImage) object[RESOURCE_IMAGE], "png", out);
 	            out.closeEntry();
 	        }
-    	} catch (Exception ex) {
+    	} 
+    	catch (Exception ex)
+    	{
     		ex.printStackTrace();
-    	} finally {
-    		if (out != null) {
-    	        try {
+    	
+    	}
+    	finally 
+    	{
+    		if (out != null) 
+    		{
+    	        try
+    	        {
     	        	out.flush();
     	        	out.close();
     	        } catch (Exception ex) {}
@@ -166,10 +199,10 @@ public class CarpentersBlocksCachedResources extends DummyModContainer {
     /**
      * Refreshes dynamic resources and creates new resource pack.
      */
-    public void rebuildCache() {
+    public void rebuildCache()
+    {
         DesignHandler.addResources(Minecraft.getMinecraft().getResourceManager());
         createResourceZipFile();
         resources.clear();
-    }
-
+    } 
 }

@@ -15,9 +15,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class OverlayHandler {
-
-    public enum Overlay {
+public class OverlayHandler
+{ 
+    public enum Overlay 
+    {
         NONE(new ItemStack(Blocks.AIR)),
         GRASS(new ItemStack(Blocks.GRASS)),
         SNOW(new ItemStack(Blocks.SNOW)),
@@ -28,11 +29,13 @@ public class OverlayHandler {
 
         private ItemStack itemStack;
 
-        private Overlay(ItemStack itemStack) {
+        private Overlay(ItemStack itemStack)
+        {
             this.itemStack = itemStack;
         }
 
-        public ItemStack getItemStack() {
+        public ItemStack getItemStack() 
+        {
             return itemStack;
         }
     }
@@ -42,22 +45,31 @@ public class OverlayHandler {
     /**
      * Initializes overlay definitions from configuration file.
      */
-    public static void init() {
-        for (String name : FeatureRegistry.overlayItems) {
+    public static void init() 
+    {
+        for (String name : FeatureRegistry.overlayItems) 
+        {
             String itemName = name.substring(0, name.indexOf(":"));
-            if (!overlayMap.containsKey(itemName)) {
+            if (!overlayMap.containsKey(itemName))
+            {
                 String overlayType = name.substring(name.indexOf(":") + 1).toLowerCase();
-                if (overlayType.equalsIgnoreCase("grass")) {
+                if (overlayType.equalsIgnoreCase("grass"))
+                {
                     overlayMap.put(itemName, Overlay.GRASS);
-                } else if (overlayType.equalsIgnoreCase("snow")) {
+                } else if (overlayType.equalsIgnoreCase("snow"))
+                {
                     overlayMap.put(itemName, Overlay.SNOW);
-                } else if (overlayType.equalsIgnoreCase("web")) {
+                } else if (overlayType.equalsIgnoreCase("web"))
+                {
                     overlayMap.put(itemName, Overlay.WEB);
-                } else if (overlayType.equalsIgnoreCase("vine")) {
+                } else if (overlayType.equalsIgnoreCase("vine")) 
+                {
                     overlayMap.put(itemName, Overlay.VINE);
-                } else if (overlayType.equalsIgnoreCase("hay")) {
+                } else if (overlayType.equalsIgnoreCase("hay")) 
+                {
                     overlayMap.put(itemName, Overlay.HAY);
-                } else if (overlayType.equalsIgnoreCase("mycelium")) {
+                } else if (overlayType.equalsIgnoreCase("mycelium")) 
+                {
                     overlayMap.put(itemName, Overlay.MYCELIUM);
                 }
             }
@@ -71,16 +83,23 @@ public class OverlayHandler {
      * @param facing the facing
      * @return <code>true</code> if overlay fully covers side
      */
-    public static boolean coversFullSide(Overlay overlay, EnumFacing facing) {
-        switch (overlay) {
+    public static boolean coversFullSide(Overlay overlay, EnumFacing facing)
+    {
+        switch (overlay) 
+        {
             case GRASS:
+            	
             case SNOW:
+            	
             case HAY:
+            	
             case MYCELIUM:
                 return EnumFacing.UP.equals(facing);
             case WEB:
+            	
             case VINE:
                 return true;
+                
             default: {}
         }
         return true;
@@ -93,7 +112,8 @@ public class OverlayHandler {
     {
         Object object = overlayMap.get(itemStack.getDisplayName());
 
-        if (object == null) {
+        if (object == null) 
+        {
             object = overlayMap.get(ChatHandler.getDefaultTranslation(itemStack));
         }
 
@@ -106,49 +126,68 @@ public class OverlayHandler {
      *
      * Returns null if there is no icon to return.
      */
-    public static TextureAtlasSprite getOverlaySprite(Overlay overlay, EnumFacing facing) {
+    public static TextureAtlasSprite getOverlaySprite(Overlay overlay, EnumFacing facing) 
+    {
         ItemStack itemStack = overlay.getItemStack();
-        switch (overlay) {
+        switch (overlay) 
+        {
             case GRASS:
-            	switch (facing) {
+            	switch (facing) 
+            	{
 	            	case DOWN:
 	            		return null;
+	            		
 	            	case UP:
 	            		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/grass_top");
+	            		
 	            	default:
-	            		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+	            		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) 
+	            		{
                     		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/grass_side_overlay");
-                    	} else {
+                    	} 
+	            		else 
+	            		{
                     		return SpriteRegistry.sprite_overlay_fast_grass_side;
                     	}
             	}
             case SNOW:
+            	
             case HAY:
+            	
             case MYCELIUM:
-                switch (facing) {
+                switch (facing) 
+                {
                     case DOWN:
                         return null;
+                        
                     case UP:
                     	return BlockUtil.getParticleTexture(itemStack);
+                    	
                     default:
-                        switch (overlay) {
+                        switch (overlay) 
+                        {
                             case SNOW:
                                 return SpriteRegistry.sprite_overlay_snow_side;
+                                
                             case HAY:
                                 return SpriteRegistry.sprite_overlay_hay_side;
+                                
                             case MYCELIUM:
                                 return SpriteRegistry.sprite_overlay_mycelium_side;
+                                
                             default:
                                 return null;
                         }
                 }
             case WEB:
+            	
             case VINE:
                 return BlockUtil.getParticleTexture(itemStack);
-            default: {
+                
+            default: 
+            {
                 return null;
             }
         }
-    }
-
+    } 
 }

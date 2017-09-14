@@ -17,8 +17,7 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import static com.carpentersblocks.Reference.*;
 public class ModelSlope implements IModel
-{
-
+{ 
 	@Override
 	public Collection<ResourceLocation> getDependencies() 
 	{
@@ -26,7 +25,8 @@ public class ModelSlope implements IModel
 	}
 
 	@Override
-	public Collection<ResourceLocation> getTextures() {
+	public Collection<ResourceLocation> getTextures()
+	{
 		return ImmutableSet.of(new ResourceLocation( MOD_ID, "blocks/slope/oblique_pos"));
 	}
 

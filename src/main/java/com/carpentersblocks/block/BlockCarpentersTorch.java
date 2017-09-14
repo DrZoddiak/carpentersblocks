@@ -4,10 +4,8 @@ import net.minecraft.block.BlockTorch;
 
 public class BlockCarpentersTorch extends BlockTorch
 {
-
-	public BlockCarpentersTorch( ) 
+	public BlockCarpentersTorch() 
 	{
 		super(); 
 	}
-
 }

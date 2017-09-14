@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class CommonProxy {
-
+public class CommonProxy
+{ 
     public void preInit(FMLPreInitializationEvent event, Configuration config) 
     {
         FeatureRegistry.preInit(event, config); // Do before block and item registration
@@ -37,7 +37,7 @@ public class CommonProxy {
         ItemRegistry.init(event);
 
         // Initialize overlays
-        if (FeatureRegistry.enableOverlays) 
+        if (Reference.enableOverlays) 
         {
             OverlayHandler.init();
         }
@@ -59,6 +59,5 @@ public class CommonProxy {
         {
             //EntityRegistry.registerModEntity(EntityCarpentersTile.class, "CarpentersTile", ENTITY_ID_TILE, CarpentersBlocks.instance, 64, 999, false);
         }
-    }
-	
+    } 
 }

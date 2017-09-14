@@ -3,8 +3,7 @@ package com.carpentersblocks.util.attribute;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class AttributeString extends AbstractAttribute<String>
-{
-
+{ 
 	private static final String TAG_ATTR_STRING = "cbAttrString";
 	
 	public AttributeString()
@@ -39,6 +38,5 @@ public class AttributeString extends AbstractAttribute<String>
 	public AbstractAttribute copy() 
 	{
 		return new AttributeString(_location, _type, new String(_model));
-	}
-	
-}
+	} 
+} 

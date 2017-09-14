@@ -16,8 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import static com.carpentersblocks.Reference.*;
 @SideOnly(Side.CLIENT)
 public class SpriteRegistry
-{
-
+{ 
     public static TextureAtlasSprite sprite_uncovered_full;
     public static TextureAtlasSprite sprite_uncovered_quartered;
     public static TextureAtlasSprite sprite_uncovered_solid;
@@ -80,6 +79,5 @@ public class SpriteRegistry
             sprite_design_tile.clear();
             DesignHandler.registerSprites(event.getMap());
         }
-    }
-
-}
+    } 
+} 

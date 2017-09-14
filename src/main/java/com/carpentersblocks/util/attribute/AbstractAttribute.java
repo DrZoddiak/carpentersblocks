@@ -18,7 +18,8 @@ public abstract class AbstractAttribute<K>
     protected EnumAttributeLocation _location;
     protected K _model;
     
-    public AbstractAttribute(EnumAttributeLocation location, EnumAttributeType type, K model) {
+    public AbstractAttribute(EnumAttributeLocation location, EnumAttributeType type, K model)
+    {
     	_location = location;
     	_type = type;
     	_model = model;
@@ -65,7 +66,8 @@ public abstract class AbstractAttribute<K>
     
     public abstract void readModelFromNBT(NBTTagCompound nbt);
 
-    public static Key generateKey(EnumAttributeLocation location, EnumAttributeType type) {
+    public static Key generateKey(EnumAttributeLocation location, EnumAttributeType type) 
+    {
     	return new Key(location, type);
     }
     
@@ -117,6 +119,5 @@ public abstract class AbstractAttribute<K>
 	
     }
     
-    public abstract AbstractAttribute copy();
-
+    public abstract AbstractAttribute copy(); 
 }

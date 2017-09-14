@@ -14,16 +14,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ClientProxy extends CommonProxy {
+public class ClientProxy extends CommonProxy 
+{
 
     @Override
-    public void preInit(FMLPreInitializationEvent event, Configuration config) {
+    public void preInit(FMLPreInitializationEvent event, Configuration config) 
+    {
     	super.preInit(event, config);
         ModelLoaderRegistry.registerLoader(new ModelLoader());        
     }
     
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) 
+    {
         super.init(event);
         MinecraftForge.EVENT_BUS.register(new SpriteRegistry());
         CarpentersBlocksCachedResources.INSTANCE.init();
@@ -39,6 +42,5 @@ public class ClientProxy extends CommonProxy {
 
         // Register entity renderers
         //RenderingRegistry.registerEntityRenderingHandler(EntityCarpentersTile.class, new RenderCarpentersTile());
-    }
-	
+    } 
 }

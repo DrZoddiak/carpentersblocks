@@ -7,10 +7,11 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class DyeHandler {
-
+public class DyeHandler 
+{ 
     private final static Map<String, Integer> dyeMap;
-    static {
+    static 
+    {
         dyeMap = new HashMap<String, Integer>();
         dyeMap.put("dyeBlack", ItemDye.DYE_COLORS[0]);
         dyeMap.put("dyeRed", ItemDye.DYE_COLORS[1]);
@@ -36,10 +37,13 @@ public class DyeHandler {
      * @param itemStack
      * @return
      */
-    public static int getVanillaDmgValue(ItemStack itemStack) {
+    public static int getVanillaDmgValue(ItemStack itemStack) 
+    {
         int color = getColor(itemStack);
-        for (int idx = 0; idx < ItemDye.DYE_COLORS.length; ++idx) {
-            if (color == ItemDye.DYE_COLORS[idx]) {
+        for (int idx = 0; idx < ItemDye.DYE_COLORS.length; ++idx)
+        {
+            if (color == ItemDye.DYE_COLORS[idx]) 
+            {
                 return 15 - idx;
             }
         }
@@ -49,10 +53,13 @@ public class DyeHandler {
     /**
      * Returns definition for ItemStack from OreDictionary.
      */
-    public static String getOreDictName(ItemStack itemStack) {
-        for (int id : OreDictionary.getOreIDs(itemStack)) {
+    public static String getOreDictName(ItemStack itemStack) 
+    {
+        for (int id : OreDictionary.getOreIDs(itemStack)) 
+        {
             String result = OreDictionary.getOreName(id);
-            if (result.startsWith("dye") && result.length() > 3) {
+            if (result.startsWith("dye") && result.length() > 3)
+            {
                 return result;
             }
         }
@@ -62,7 +69,8 @@ public class DyeHandler {
     /**
      * Returns true if ItemStack is a dye.
      */
-    public static boolean isDye(ItemStack itemStack, boolean allowWhite) {
+    public static boolean isDye(ItemStack itemStack, boolean allowWhite)
+    {
         String name = getOreDictName(itemStack);
         return dyeMap.containsKey(name) && (name.equals("dyeWhite") && !allowWhite ? false : true);
     }
@@ -70,17 +78,20 @@ public class DyeHandler {
     /**
      * Returns a integer with hex for 0xrrggbb based on ItemStack.
      */
-    public static int getColor(ItemStack itemStack) {
+    public static int getColor(ItemStack itemStack)
+    {
         return getColor(getOreDictName(itemStack));
     }
 
     /**
      * Returns a integer with hex for 0xrrggbb based on ore dictionary name.
      */
-    public static int getColor(String dye) {
+    public static int getColor(String dye)
+    {
         int color = 0xffffff;
         Object dyeLookup = dyeMap.get(dye);
-        if (dyeLookup != null) {
+        if (dyeLookup != null) 
+        {
             color = (Integer) dyeLookup;
         }
         return color;

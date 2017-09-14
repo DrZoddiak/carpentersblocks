@@ -7,8 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 
 public class CollapsibleUtil extends DataUtil implements IDataFacing 
-{
-
+{ 
     public double CENTER_YMAX;
     public double offset_XZNN;
     public double offset_XZNP;
@@ -46,7 +45,8 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing
 	    		{
 	    			return QUAD_XZNP;
 	    		}
-	    	} else
+	    	}
+	    	else
 	    	{
 	    		if (Math.round(EventHandler.eventHitVector.zCoord) == 0)
 	    		{
@@ -83,7 +83,8 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing
     {
         for (int quad = 0; quad < 4; quad++)
         {
-            if (getQuadDepth(quad) < 16) {
+            if (getQuadDepth(quad) < 16) 
+            {
                 return false;
             }
         }
@@ -190,19 +191,23 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing
             return;
         }
         int data = cbTileEntity.getData();
-        switch (quad) {
+        switch (quad)
+        {
             case QUAD_XZNN:
                 data &= ~0x7c0000;
                 data |= depth << 18;
                 break;
+                
             case QUAD_XZNP:
                 data &= ~0x3e000;
                 data |= depth << 13;
                 break;
+                
             case QUAD_XZPN:
                 data &= ~0x1f00;
                 data |= depth << 8;
                 break;
+                
             case QUAD_XZPP:
                 data &= ~0xf8;
                 data |= depth << 3;
@@ -218,16 +223,20 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing
     {
         int depth = 0;
         int cbMetadata = getData();
-        switch (quad) {
+        switch (quad) 
+        {
             case QUAD_XZNN:
                 depth = (cbMetadata &= 0x7c0000) >> 18;
                 break;
+                
             case QUAD_XZNP:
                 depth = (cbMetadata &= 0x3e000) >> 13;
                 break;
+                
             case QUAD_XZPN:
                 depth = (cbMetadata &= 0x1f00) >> 8;
                 break;
+                
             case QUAD_XZPP:
                 depth = (cbMetadata &= 0xf8) >> 3;
                 break;

@@ -5,22 +5,9 @@ import java.util.ArrayList;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-public class FeatureRegistry {
-
-    public static boolean enableCovers              = true;
-    public static boolean enableOverlays            = true;
-    public static boolean enableSideCovers          = true;
-    public static boolean enableDyeColors           = true;
-    public static boolean enableChiselDesigns       = true;
-    public static boolean enableTorchWeatherEffects = true;
-    public static boolean enableOwnership           = true;
-    public static boolean enableIllumination        = true;
-    public static boolean enableRoutableFluids      = true;
-    public static boolean enableAlphaPanes          = true;
-    public static boolean enableRailSlopes          = true;
-    public static boolean enableGarageDoorVoidFill  = true;
-    public static boolean enableFreeStandingLadders = false;
+import static com.carpentersblocks.Reference.*;
+public class FeatureRegistry 
+{  
 
     public static ArrayList<String> overlayItems    = new ArrayList<String>();
     public static ArrayList<String> coverExceptions = new ArrayList<String>();
@@ -31,7 +18,8 @@ public class FeatureRegistry {
     /**
      * Initializes configuration properties.
      */
-    public static void preInit(FMLPreInitializationEvent event, Configuration config) {
+    public static void preInit(FMLPreInitializationEvent event, Configuration config) 
+    {
         enableCovers              = config.get("features",               "Enable Covers",              enableCovers).getBoolean(enableCovers);
         enableOverlays            = config.get("features",             "Enable Overlays",            enableOverlays).getBoolean(enableOverlays);
         enableSideCovers          = config.get("features",          "Enable Side Covers",          enableSideCovers).getBoolean(enableSideCovers);
@@ -77,22 +65,24 @@ public class FeatureRegistry {
 
         Property overlayList = config.get("features", "Overlay Definitions", new String[] { "Seeds:grass", "Snowball:snow", "String:web", "Vines:vine", "Wheat:hay", "Mushroom:mycelium" });
         overlayList.setComment("This maps items to overlays.\nItems are prefixed with display names (en_US only).\nOverlay suffixes are :grass, :snow, :web, :vine, :hay, :mycelium");
-        for (String item : overlayList.getStringList()) {
+        for (String item : overlayList.getStringList()) 
+        {
             overlayItems.add(item);
         }
 
         Property coverExceptionList = config.get(
                 "features",
                 "Cover Exceptions",
-                new String[] {
+                new String[]
+                {
                         "Silverwood Planks", // Thaumcraft
                         "Greatwood Planks",  // Thaumcraft
                         "Thatch"  // TerraFirmaCraft
                 });
         coverExceptionList.setComment("This allows restricted blocks to be used as covers.\nAdd your own by supplying the display name for the block (en_US only).");
-        for (String item : coverExceptionList.getStringList()) {
+        for (String item : coverExceptionList.getStringList())
+        {
             coverExceptions.add(item);
         }
-    }
-
+    } 
 }

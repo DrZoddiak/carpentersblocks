@@ -8,21 +8,23 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CarpentersBlocksTab extends CreativeTabs {
-
-    public CarpentersBlocksTab(String label) {
+public class CarpentersBlocksTab extends CreativeTabs
+{ 
+    public CarpentersBlocksTab(String label) 
+    {
         super(label);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public Item getTabIconItem() {
+    public Item getTabIconItem() 
+    {
         return ItemRegistry.itemCarpentersHammer;
     }
 
     @Override
-    public String getTranslatedTabLabel() {
+    public String getTranslatedTabLabel() 
+    {
         return I18n.format("itemGroup.carpentersBlocks.name", new Object[0]);
-    }
-
-}
+    } 
+} 

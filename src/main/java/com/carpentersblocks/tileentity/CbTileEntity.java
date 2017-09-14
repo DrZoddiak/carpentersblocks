@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.block.types.BlockCoverable;
 import com.carpentersblocks.util.attribute.AbstractAttribute;
 import com.carpentersblocks.util.attribute.AbstractAttribute.Key;
@@ -34,8 +35,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 	public class CbTileEntity extends TileEntity implements IProtected
-	{
-
+	{ 
 		public static final String TAG_ATTR_LIST = "cbAttrList";
 	    public static final String TAG_METADATA  = "cbMetadata";
 	    public static final String TAG_OWNER     = "cbOwner";
@@ -63,20 +63,25 @@ import net.minecraft.world.World;
 	     * @param nbt the NBT tag compound
 	     */
 	    @Override
-	    public void readFromNBT(NBTTagCompound nbt) {
+	    public void readFromNBT(NBTTagCompound nbt) 
+	    {
 	        super.readFromNBT(nbt);
 	        _cbAttrMap.clear();
             NBTTagList nbtTagList = nbt.getTagList(TAG_ATTR_LIST, 10);
-            for (int idx = 0; idx < nbtTagList.tagCount(); ++idx) {
+            for (int idx = 0; idx < nbtTagList.tagCount(); ++idx)
+            {
                 NBTTagCompound nbt1 = nbtTagList.getCompoundTagAt(idx);
                 String identifier = nbt1.getString(AbstractAttribute.TAG_ATTR_IDENT);
                 AbstractAttribute attribute = null;
-                if (identifier.equalsIgnoreCase(AbstractAttribute.IDENT_ATTR_ITEMSTACK)) {
+                if (identifier.equalsIgnoreCase(AbstractAttribute.IDENT_ATTR_ITEMSTACK)) 
+                {
                 	attribute = new AttributeItemStack();
-                } else if (identifier.equalsIgnoreCase(AbstractAttribute.IDENT_ATTR_STRING)) {
+                } else if (identifier.equalsIgnoreCase(AbstractAttribute.IDENT_ATTR_STRING)) 
+                {
                 	attribute = new AttributeString();
                 }
-                if (attribute != null) {
+                if (attribute != null) 
+                {
                 	attribute.readFromNBT(nbt1);
                 	_cbAttrMap.put(attribute.getKey(), attribute);
                 }
@@ -92,7 +97,8 @@ import net.minecraft.world.World;
 	     * @param nbt the NBT tag compound
 	     */
 	    @Override
-	    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+	    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
+	    {
 	        super.writeToNBT(nbt);
 	        NBTTagList nbtTagList = new NBTTagList();
 	        Iterator iterator = _cbAttrMap.entrySet().iterator();
@@ -110,18 +116,21 @@ import net.minecraft.world.World;
 	    }
 	    
 	    @Nullable
-	    public SPacketUpdateTileEntity getUpdatePacket() {
+	    public SPacketUpdateTileEntity getUpdatePacket() 
+	    {
 	        return new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
 	    }
 
-	    public NBTTagCompound getUpdateTag() {
+	    public NBTTagCompound getUpdateTag() 
+	    {
 	        return writeToNBT(new NBTTagCompound());
 	    }
 
 	    /**
 	     * Copies owner from CbTileEntity object.
 	     */
-	    public void copyOwner(final CbTileEntity TE) {
+	    public void copyOwner(final CbTileEntity TE) 
+	    {
 	        _cbOwner = TE.getOwner();
 	        markDirty();
 	    }
@@ -130,21 +139,26 @@ import net.minecraft.world.World;
 	     * Sets owner of tile entity.
 	     */
 	    @Override
-	    public void setOwner(ProtectedObject obj) {
+	    public void setOwner(ProtectedObject obj)
+	    {
 	        _cbOwner = obj.toString();
 	        markDirty();
 	    }
 
 	    @Override
-	    public String getOwner() {
+	    public String getOwner()
+	    {
 	        return _cbOwner;
 	    }
 	    
-	    public ItemStack getDroppedItemStack(Key key) {
+	    public ItemStack getDroppedItemStack(Key key)
+	    {
 	        AbstractAttribute attribute = _cbAttrHelper.getAttribute(key);
-	        if (attribute instanceof AttributeItemStack) {
+	        if (attribute instanceof AttributeItemStack) 
+	        {
 	        	ItemStack itemStack = (ItemStack) attribute.getModel();
-		        if (EnumAttributeType.COVER.equals(key.getType())) {
+		        if (EnumAttributeType.COVER.equals(key.getType()))
+		        {
 		        	IBlockState blockState = BlockUtil.getAttributeBlockState(_cbAttrHelper, key.getLocation(), key.getType());
 		        	int metadata = blockState.getBlock().getMetaFromState(blockState);
 		        	itemStack.setItemDamage(metadata);
@@ -154,32 +168,45 @@ import net.minecraft.world.World;
 	        return null;
 	    }
 
-	    public boolean addAttribute(EnumAttributeLocation location, EnumAttributeType type, Object model) {
-	        if (_cbAttrHelper.hasAttribute(location, type) || model == null) {
+	    public boolean addAttribute(EnumAttributeLocation location, EnumAttributeType type, Object model)
+	    {
+	        if (_cbAttrHelper.hasAttribute(location, type) || model == null)
+	        {
 	            return false;
 	        }
-	        if (model instanceof ItemStack) {
+	        if (model instanceof ItemStack) 
+	        {
 		        ItemStack reducedStack = ItemStack.copyItemStack((ItemStack)model);
 		        reducedStack.stackSize = 1;
 		        _cbAttrMap.put(AbstractAttribute.generateKey(location, type), new AttributeItemStack(location, type, reducedStack));
 		        World world = getWorld();
 		        switch (type) {
+		        
 			        case COVER:
 			        	//world.setBlockState(pos, this.getBlockType().getDefaultState());
 			        case ILLUMINATOR:
+			        	
 			        case DYE:
+			        	
 			        case PLANT:
+			        	
 			        case SOIL:
 			        	//world.markBlockRangeForRenderUpdate(pos.add(-1, -1, -1), pos.add(1, 1, 1));
 			        	break;
+			        	
 			        case FERTILIZER:
 			        	// getWorld().playAuxSFX(2005, xCoord, yCoord, zCoord, 0);
 			        	break;
+			        	
 		        	default: {}
 		        }
-	        } else if (model instanceof String) {
+	        } 
+	        else if (model instanceof String) 
+	        {
 	        	_cbAttrMap.put(AbstractAttribute.generateKey(location, type), new AttributeString(location, type, (String)model));
-	        } else {
+	        } 
+	        else 
+	        {
 	        	return false;
 	        }
 	        //updateWorldAndLighting(true);
@@ -193,8 +220,10 @@ import net.minecraft.world.World;
 	     *
 	     * @param key the attribute key
 	     */
-	    public boolean onAttrDropped(Key key) {
-	    	if (_cbAttrMap.remove(key) == null) {
+	    public boolean onAttrDropped(Key key)
+	    {
+	    	if (_cbAttrMap.remove(key) == null)
+	    	{
 	    		return false;
 	    	}
 	        update(true);
@@ -206,7 +235,8 @@ import net.minecraft.world.World;
 	     *
 	     * @param  attrId the attribute ID
 	     */
-	    private boolean createBlockDropEvent(AttributeItemStack attribute) {
+	    private boolean createBlockDropEvent(AttributeItemStack attribute) 
+	    {
 	        getWorld().addBlockEvent(getPos(), getBlockType(), BlockCoverable.EVENT_ID_DROP_ATTR , attribute.getKey().hashCode());
 	        return true;
 	    }
@@ -216,23 +246,30 @@ import net.minecraft.world.World;
 	     * 
 	     * @param attribute the attribute
 	     */
-	    public boolean removeAttribute(EnumAttributeLocation location, EnumAttributeType type) {
-	    	if (_cbAttrHelper.hasAttribute(location, type)) {
+	    public boolean removeAttribute(EnumAttributeLocation location, EnumAttributeType type)
+	    {
+	    	if (_cbAttrHelper.hasAttribute(location, type))
+	    	{
 		    	AbstractAttribute attribute = _cbAttrHelper.getAttribute(location, type);
 		    	return removeAttribute(attribute);
 	    	}
 	    	return false;
 	    }
 	    
-	    private boolean removeAttribute(AbstractAttribute attribute) {
+	    private boolean removeAttribute(AbstractAttribute attribute) 
+	    {
 	    	return _cbAttrMap.remove(attribute.getKey()) != null;
 	    }
 	    
-	    public boolean removeAttribute(EnumAttributeLocation location) {
+	    public boolean removeAttribute(EnumAttributeLocation location) 
+	    { 
 	    	AbstractAttribute attribute = _cbAttrHelper.getLastAttribute(location);
-	    	if (attribute instanceof AttributeItemStack) {
+	    	if (attribute instanceof AttributeItemStack) 
+	    	{
 	    		return createBlockDropEvent((AttributeItemStack)attribute);
-	    	} else if (attribute instanceof AttributeString) {
+	    	} 
+	    	else if (attribute instanceof AttributeString)
+	    	{
 	    		return onAttrDropped(attribute.getKey());
 	    	}
 	    	return false;
@@ -243,12 +280,15 @@ import net.minecraft.world.World;
 	     * 
 	     * @param location the attribute location
 	     */
-	    public void removeAttributes(EnumAttributeLocation location) {
+	    public void removeAttributes(EnumAttributeLocation location) 
+	    {
 	    	Iterator it = _cbAttrMap.entrySet().iterator();
-	        while (it.hasNext()) {
+	        while (it.hasNext())
+	        {
 	            Map.Entry pair = (Map.Entry)it.next();
 	            AbstractAttribute attribute = (AbstractAttribute) pair.getValue();
-	            if (attribute.getLocation().equals(location)) {
+	            if (attribute.getLocation().equals(location))
+	            {
 	            	removeAttribute(attribute);
 	            }
 	        }
@@ -259,7 +299,8 @@ import net.minecraft.world.World;
 	     *
 	     * @return the data
 	     */
-	    public int getData() {
+	    public int getData() 
+	    {
 	        return _cbMetadata;
 	    }
 
@@ -269,8 +310,10 @@ import net.minecraft.world.World;
 	     * @param data the block data
 	     * @return <code>true</code> if data was updated, or <code>false</code> if no change
 	     */
-	    public boolean setData(int data) {
-	    	if (data == getData()) {
+	    public boolean setData(int data)
+	    {
+	    	if (data == getData())
+	    	{
 	    		return false;
 	    	}
             _cbMetadata = data;
@@ -285,12 +328,15 @@ import net.minecraft.world.World;
 	     * 
 	     * @return a list of ItemStacks
 	     */
-	    public List<ItemStack> getAllDroppableAttributes() {
+	    public List<ItemStack> getAllDroppableAttributes()
+	    {
 	    	List<ItemStack> list = new ArrayList<ItemStack>();
 	    	Iterator it = _cbAttrMap.entrySet().iterator();
-	        while (it.hasNext()) {
+	        while (it.hasNext())
+	        {
 	            Map.Entry pair = (Map.Entry)it.next();
-	            if (pair.getValue() instanceof AttributeItemStack) {
+	            if (pair.getValue() instanceof AttributeItemStack)
+	            {
 	            	list.add(((AttributeItemStack)pair.getValue()).getModel());
 	            }
 	        }
@@ -303,7 +349,8 @@ import net.minecraft.world.World;
 	     * 
 	     * @return the attribute helper
 	     */
-	    public AttributeHelper getAttributeHelper() {
+	    public AttributeHelper getAttributeHelper()
+	    {
 	    	return _cbAttrHelper;
 	    }
 
@@ -321,7 +368,8 @@ import net.minecraft.world.World;
 	     * @param newState The new ID of the block (May be the same)
 	     * @return true forcing the invalidation of the existing TE, false not to invalidate the existing TE
 	     */
-	    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+	    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	    {
 	    	return oldState.getBlock() != newState.getBlock();
 	    }
 
@@ -336,8 +384,10 @@ import net.minecraft.world.World;
 	     * 
 	     * @return the light value
 	     */
-	    public int getLightValue() {
-	        if (_lightValue == -1 && !_calcLighting) {
+	    public int getLightValue() 
+	    {
+	        if (_lightValue == -1 && !_calcLighting)
+	        {
 	            updateCachedLighting();
 	        }
 	        return _lightValue;
@@ -348,18 +398,26 @@ import net.minecraft.world.World;
 	     * 
 	     * @return a value from 0 to 15
 	     */
-	    protected int getDynamicLightValue() {
+	    protected int getDynamicLightValue() 
+	    {
 	    	int value = 0;
-	    	if (FeatureRegistry.enableIllumination && _cbAttrHelper.hasAttribute(EnumAttributeLocation.HOST, EnumAttributeType.ILLUMINATOR)) {
+	    	if (Reference.enableIllumination && _cbAttrHelper.hasAttribute(EnumAttributeLocation.HOST, EnumAttributeType.ILLUMINATOR))
+	    	{
 	    		return 15;
-	    	} else {
+	    	} 
+	    	else 
+	    	{
 	    		_calcLighting = true;
-	    		for (IBlockState blockState : _cbAttrHelper.getAttributeBlockStates()) {
+	    		for (IBlockState blockState : _cbAttrHelper.getAttributeBlockStates()) 
+	    		{
     				// Determine state-sensitive light value (usually recursive, and not useful)
     				int posLightValue = blockState.getBlock().getLightValue(blockState, getWorld(), getPos());
-    				if (posLightValue > 0) {
+    				if (posLightValue > 0)
+    				{
     					value = Math.max(value, posLightValue);
-    				} else {
+    				}
+    				else
+    				{
     					value = Math.max(value, blockState.getBlock().getLightValue(blockState));
     				}
 	    		}
@@ -371,7 +429,8 @@ import net.minecraft.world.World;
 	    /**
 	     * Updates light value and world lightmap.
 	     */
-	    private void updateCachedLighting() {
+	    private void updateCachedLighting()
+	    {
 	        _lightValue = getDynamicLightValue();
 	        getWorld().checkLightFor(EnumSkyBlock.BLOCK, pos);
 	    }
@@ -379,16 +438,18 @@ import net.minecraft.world.World;
 	    /**
 	     * Performs world update and refreshes lighting.
 	     */
-	    public void update(boolean markDirty) {
+	    public void update(boolean markDirty) 
+	    {
 	        World world = this.getWorld();
-	        if (world != null) {
+	        if (world != null)
+	        {
 	            IBlockState blockState = this.getBlockType().getDefaultState();
 	            world.notifyBlockUpdate(pos, blockState, blockState, 3);
 	            updateCachedLighting();
-	            if (markDirty) {
+	            if (markDirty) 
+	            {
 	            	this.markDirty();
 	            }
 	        }
-	    }
-	    
-	}
+	    } 
+	} 

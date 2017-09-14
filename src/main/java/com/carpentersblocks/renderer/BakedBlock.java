@@ -9,14 +9,16 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.model.IModelState;
 
-public class BakedBlock extends AbstractBakedModel {
-	
-    public BakedBlock(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+public class BakedBlock extends AbstractBakedModel 
+{ 
+    public BakedBlock(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
+    {
 		super(state, format, bakedTextureGetter);
 	}
     
 	@Override
-	protected void fillQuads(QuadContainer quadContainer) {
+	protected void fillQuads(QuadContainer quadContainer)
+	{
 		RenderHelper renderHelper = new RenderHelper();
 		quadContainer.add(renderHelper.getQuadYNeg());
 		quadContainer.add(renderHelper.getQuadYPos());
@@ -27,8 +29,8 @@ public class BakedBlock extends AbstractBakedModel {
     }
 
 	@Override
-	protected TextureAtlasSprite getUncoveredSprite() {
+	protected TextureAtlasSprite getUncoveredSprite() 
+	{
 		return SpriteRegistry.sprite_uncovered_full;
-	}
-	
+	} 
 }

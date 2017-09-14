@@ -5,8 +5,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class ProtectedObject {
-
+public class ProtectedObject
+{ 
     public EntityPlayer entityPlayer;
 
     public ProtectedObject(EntityPlayer entityPlayer)
@@ -17,13 +17,14 @@ public class ProtectedObject {
     @Override
     public String toString()
     {
-        if (FMLCommonHandler.instance().getSide() == Side.SERVER) {
-            if (((EntityPlayerMP)entityPlayer).mcServer.isServerInOnlineMode()) {
+        if (FMLCommonHandler.instance().getSide() == Side.SERVER)
+        {
+            if (((EntityPlayerMP)entityPlayer).mcServer.isServerInOnlineMode()) 
+            {
                 return entityPlayer.getUniqueID().toString();
             }
         }
 
         return entityPlayer.getDisplayNameString();
-    }
-
-}
+    } 
+} 

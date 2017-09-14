@@ -6,7 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.carpentersblocks.CarpentersBlocks;
 import static com.carpentersblocks.Reference.*;
-public class ModLogger {
+public class ModLogger
+{
 
     private static Logger logger = LogManager.getLogger( MOD_ID);
 

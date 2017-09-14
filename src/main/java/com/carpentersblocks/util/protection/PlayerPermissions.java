@@ -2,6 +2,7 @@ package com.carpentersblocks.util.protection;
 
 import java.util.UUID;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.util.registry.FeatureRegistry;
 
 import net.minecraft.client.Minecraft;
@@ -48,7 +49,7 @@ public class PlayerPermissions
         {
             return true;
         }
-        else if (!enforceOwnership && !FeatureRegistry.enableOwnership)
+        else if (!enforceOwnership && !Reference.enableOwnership)
         {
             return true;
         } 

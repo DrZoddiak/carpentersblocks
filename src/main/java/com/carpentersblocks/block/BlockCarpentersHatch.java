@@ -4,11 +4,9 @@ import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 
 public class BlockCarpentersHatch extends BlockTrapDoor
-{
-
-	public BlockCarpentersHatch(Material material) {
-		super(material);
-		// TODO Auto-generated constructor stub
-	}
-
+{ 
+	public BlockCarpentersHatch(Material material)
+	{
+		super(material); 
+	} 
 }

@@ -26,7 +26,8 @@ public class BakedCollapsibleBlock extends AbstractBakedModel
 	{
 		RenderHelperCollapsible _renderHelper = new RenderHelperCollapsible(this);
 		CollapsibleUtil util = _renderHelper.getUtil();
-    	if (!util.isFullCube()) {
+    	if (!util.isFullCube()) 
+    	{
     		quadContainer.add(_renderHelper.getQuadYPosZNeg());
     		quadContainer.add(_renderHelper.getQuadYPosZPos());
     		quadContainer.add(_renderHelper.getQuadXNegYPos());
@@ -48,6 +49,5 @@ public class BakedCollapsibleBlock extends AbstractBakedModel
 	protected TextureAtlasSprite getUncoveredSprite() 
 	{
 		return SpriteRegistry.sprite_uncovered_solid;
-	}
-	
+	} 
 }

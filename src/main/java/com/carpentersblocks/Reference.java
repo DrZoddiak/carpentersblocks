@@ -53,6 +53,28 @@ public class Reference
     public static boolean enableChisel           = true;
     public static boolean enableTile             = true;
     
+    //tool variables
+    public static int itemCarpentersToolsUses                  = 400;
+    public static boolean itemCarpentersToolsDamageable        = true; 
+    public static double itemHammerDamageChanceFromSlopes      = 0.75D;
+    public static double itemHammerDamageChanceFromStairs      = 1.0D;
+    public static double itemHammerDamageChanceFromCollapsible = 0.2D; 
+    
+    //features
+    public static boolean enableCovers              = true;
+    public static boolean enableOverlays            = true;
+    public static boolean enableSideCovers          = true;
+    public static boolean enableDyeColors           = true;
+    public static boolean enableChiselDesigns       = true;
+    public static boolean enableTorchWeatherEffects = true;
+    public static boolean enableOwnership           = true;
+    public static boolean enableIllumination        = true;
+    public static boolean enableRoutableFluids      = true;
+    public static boolean enableAlphaPanes          = true;
+    public static boolean enableRailSlopes          = true;
+    public static boolean enableGarageDoorVoidFill  = true;
+    public static boolean enableFreeStandingLadders = false;
+    
     //recipe return quantity
     public static int recipeQuantityBarrier          = 4;
     public static int recipeQuantityBed              = 1;
@@ -72,6 +94,7 @@ public class Reference
     public static int recipeQuantitySlope            = 6;
     public static int recipeQuantityStairs           = 4;
     public static int recipeQuantityTorch            = 8;
+    public static int recipeQuantityTile             = 12;
     
     //render ID
     public static int carpentersBarrierRenderID;

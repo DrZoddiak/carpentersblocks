@@ -23,10 +23,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ServerCustomPacketEvent;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import static com.carpentersblocks.Reference.*;
-public class PacketHandler {
-
+public class PacketHandler
+{ 
     private final static List<Class> packetCarrier;
-    static {
+    static 
+    {
         packetCarrier = new ArrayList<Class>();
         packetCarrier.add(PacketActivateBlock.class);
         packetCarrier.add(PacketEnrichPlant.class);
@@ -34,30 +35,39 @@ public class PacketHandler {
     }
 
     @SubscribeEvent
-    public void onServerPacket(ServerCustomPacketEvent event) throws IOException {
+    public void onServerPacket(ServerCustomPacketEvent event) throws IOException 
+    {
         ByteBufInputStream bbis = new ByteBufInputStream(event.getPacket().payload());
         EntityPlayer entityPlayer = ((NetHandlerPlayServer) event.getHandler()).playerEntity;
         int packetId = bbis.readInt();
-        if (packetId < packetCarrier.size()) {
-            try {
+        if (packetId < packetCarrier.size()) 
+        {
+            try 
+            {
                 ICarpentersPacket packetClass = (ICarpentersPacket) packetCarrier.get(packetId).newInstance();
                 packetClass.processData(entityPlayer, bbis);
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 e.printStackTrace();
             }
-        } else {
+        } 
+        else
+        {
             ModLogger.log(Level.WARN, "Encountered out of range packet Id: " + packetId);
         }
         bbis.close();
     }
 
-    public static void sendPacketToServer(ICarpentersPacket packet) {
+    public static void sendPacketToServer(ICarpentersPacket packet)
+    {
         PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
         buffer.writeInt(packetCarrier.indexOf(packet.getClass()));
-        try {
+        try 
+        {
             packet.appendData(buffer);
-        } catch (IOException e) { }
+        } 
+        catch (IOException e) { }
         CarpentersBlocks.channel.sendToServer(new FMLProxyPacket(new CPacketCustomPayload( MOD_ID, buffer)));
-    }
-
-}
+    } 
+} 

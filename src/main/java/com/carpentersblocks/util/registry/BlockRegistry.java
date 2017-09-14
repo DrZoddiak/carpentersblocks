@@ -1,6 +1,7 @@
 package com.carpentersblocks.util.registry;
 
 import com.carpentersblocks.CarpentersBlocks;
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.block.BlockCarpentersBarrier;
 import com.carpentersblocks.block.BlockCarpentersBed;
 import com.carpentersblocks.block.BlockCarpentersBlock;
@@ -316,7 +317,7 @@ public class BlockRegistry
                 .setCreativeTab(CarpentersBlocks.CREATIVE_TAB)
                 .setLightLevel(1.0F);
 
-            if (FeatureRegistry.enableTorchWeatherEffects) 
+            if (Reference.enableTorchWeatherEffects) 
             {
             	blockCarpentersTorch.setTickRandomly(true);
             }

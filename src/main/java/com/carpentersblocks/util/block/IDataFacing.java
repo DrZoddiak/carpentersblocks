@@ -4,8 +4,8 @@ import com.carpentersblocks.tileentity.CbTileEntity;
 
 import net.minecraft.util.EnumFacing;
 
-public interface IDataFacing {
-
+public interface IDataFacing 
+{ 
     /**
      * Sets block facing.
      *
@@ -13,8 +13,8 @@ public interface IDataFacing {
      * @param  facing the block facing
      * @return <code>true</code> if facing changed
      */
-    public boolean setFacing(CbTileEntity cbTileEntity, EnumFacing facing);
-
+    public boolean setFacing(CbTileEntity cbTileEntity, EnumFacing facing); 
+    
     /**
      * Gets block facing.
      * 

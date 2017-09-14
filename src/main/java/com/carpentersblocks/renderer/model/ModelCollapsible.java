@@ -16,25 +16,29 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import static com.carpentersblocks.Reference.*;
-public class ModelCollapsible implements IModel {
-
+public class ModelCollapsible implements IModel
+{ 
 	@Override
-	public Collection<ResourceLocation> getDependencies() {
+	public Collection<ResourceLocation> getDependencies()
+	{
 		return Collections.emptySet();
 	}
 
 	@Override
-	public Collection<ResourceLocation> getTextures() {
+	public Collection<ResourceLocation> getTextures() 
+	{
 		return ImmutableSet.of(new ResourceLocation( MOD_ID, "blocks/general/solid"));
 	}
 
 	@Override
-	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) 
+	{
 		return new BakedCollapsibleBlock(state, format, bakedTextureGetter);
 	}
 
 	@Override
-	public IModelState getDefaultState() {
+	public IModelState getDefaultState() 
+	{
 		return TRSRTransformation.identity();
 	}
 

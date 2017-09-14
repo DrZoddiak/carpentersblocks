@@ -12,8 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
 public class PacketSlopeSelect implements ICarpentersPacket 
-{
-
+{ 
     private int slot = 0;
     private boolean incDamage = false;
 
@@ -34,20 +33,21 @@ public class PacketSlopeSelect implements ICarpentersPacket
 
         // TODO: Implement with slopes
         if (itemStack != null && Block.getBlockFromItem(itemStack.getItem()).equals(BlockRegistry.blockCarpentersSlope)) 
- 		  {
-
+ 		  { 
             int maxDmg = BlockCarpentersSlope.slopeType.length - 1;
             int itemDmg = itemStack.getItemDamage();
             itemDmg += incDmg ? 1 : -1;
 
-            if (itemDmg > maxDmg) {
+            if (itemDmg > maxDmg)
+            {
                 itemDmg = 0;
-            } else if (itemDmg < 0) {
+            } 
+            else if (itemDmg < 0) 
+            {
                 itemDmg = maxDmg;
             }
 
-            itemStack.setItemDamage(itemDmg);
-
+            itemStack.setItemDamage(itemDmg); 
         } 
     }
 

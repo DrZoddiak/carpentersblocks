@@ -12,8 +12,7 @@ import com.carpentersblocks.util.block.BlockUtil;
 import net.minecraft.block.state.IBlockState;
 
 public class AttributeHelper 
-{
-	
+{ 
 	private Map<Key, AbstractAttribute> _map;
 	
 	public AttributeHelper(Map<Key, AbstractAttribute> map)
@@ -83,6 +82,5 @@ public class AttributeHelper
 	        }
 	    }	    	
     	return list;
-    }
-    
-}
+    } 
+} 

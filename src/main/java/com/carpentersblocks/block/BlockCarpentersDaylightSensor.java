@@ -6,13 +6,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockCarpentersDaylightSensor extends BlockDaylightDetector
-{
-	private boolean inverted;
-	
+{  
 	public BlockCarpentersDaylightSensor(boolean inverted) 
 	{
-		super(inverted);
-		this.inverted = inverted;
-	} 
-
+		super(inverted); 
+	}  
 }

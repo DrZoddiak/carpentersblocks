@@ -6,8 +6,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 
-public class ChatHandler {
-
+public class ChatHandler
+{
     /**
      * Sends a chat message to a player.
      */
@@ -50,8 +50,8 @@ public class ChatHandler {
      * @param  itemStack the ItemStack
      * @return the display name
      */
-    public static String getDefaultTranslation(ItemStack itemStack) {
+    public static String getDefaultTranslation(ItemStack itemStack) 
+    {
     	return I18n.translateToFallback(getUnlocalizedNameEfficiently(itemStack));
     }
-
 }

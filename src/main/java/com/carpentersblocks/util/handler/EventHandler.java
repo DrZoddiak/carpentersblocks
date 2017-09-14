@@ -95,14 +95,17 @@ public class EventHandler
      * @param event the event
      */
     @SubscribeEvent
-    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-    	if (isValidBlockEvent(event.getWorld(), event.getPos())) {
+    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) 
+    {
+    	if (isValidBlockEvent(event.getWorld(), event.getPos())) 
+    	{
     		eventFace = event.getFace();
     		eventHand = event.getHand();
     		eventHitVector = getNormalizedHitVec(event.getHitVec(), event.getPos());
 	    	ItemStack itemStack = event.getEntityPlayer().getHeldItem(event.getHand());
 	    	boolean hasTool = itemStack != null && (itemStack.getItem() instanceof ICarpentersHammer || itemStack.getItem() instanceof ICarpentersChisel);
-	        if (hasTool && event.getEntityPlayer().capabilities.isCreativeMode) {
+	        if (hasTool && event.getEntityPlayer().capabilities.isCreativeMode) 
+	        {
 	        	IBlockState blockState = event.getEntityPlayer().getEntityWorld().getBlockState(event.getPos());
 	            blockState.getBlock().onBlockClicked(event.getEntityPlayer().getEntityWorld(), event.getPos(), event.getEntityPlayer());
 	            if (event.getWorld().isRemote) {
@@ -121,14 +124,17 @@ public class EventHandler
      * @param event the event
      */
     @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event)
+    {
     	if (isValidBlockEvent(event.getWorld(), event.getPos())) {
     		eventFace = event.getFace();
     		eventHand = event.getHand();
     		eventHitVector = getNormalizedHitVec(event.getHitVec(), event.getPos());
     		ItemStack itemStack = event.getEntityPlayer().getHeldItem(event.getHand());
-            if (event.getEntityPlayer().isSneaking()) {
-                if (!(itemStack != null && itemStack.getItem() instanceof ItemBlock && !BlockUtil.isOverlay(itemStack))) {
+            if (event.getEntityPlayer().isSneaking()) 
+            {
+                if (!(itemStack != null && itemStack.getItem() instanceof ItemBlock && !BlockUtil.isOverlay(itemStack)))
+                {
                 	IBlockState blockState = event.getWorld().getBlockState(event.getPos());
                 	blockState.getBlock().onBlockActivated(event.getEntityPlayer().worldObj, event.getPos(), blockState, event.getEntityPlayer(), EnumHand.MAIN_HAND, event.getEntityPlayer().getHeldItemMainhand(), event.getFace(), 1.0F, 1.0F, 1.0F);
                 }
@@ -219,12 +225,16 @@ public class EventHandler
     {
         // Try origin first
         TileEntity tileEntity = world.getTileEntity(blockPos);
-        if (tileEntity != null && tileEntity instanceof CbTileEntity) {
+        if (tileEntity != null && tileEntity instanceof CbTileEntity)
+        {
             return (CbTileEntity) tileEntity;
-        } else {
+        }
+        else
+        {
             // Try y-offset -1
             TileEntity TE_YN = world.getTileEntity(blockPos.add(0, -1, 0));
-            if (TE_YN != null && TE_YN instanceof CbTileEntity) {
+            if (TE_YN != null && TE_YN instanceof CbTileEntity) 
+            {
                 return (CbTileEntity) TE_YN;
             }
         }
@@ -305,15 +315,19 @@ public class EventHandler
      * @param entity
      * @return
      */
-    private CbTileEntity getTileEntityAtFeet(Entity entity) {
+    private CbTileEntity getTileEntityAtFeet(Entity entity)
+    {
         int x = MathHelper.floor_double(entity.posX);
         int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.getYOffset());
         int z = MathHelper.floor_double(entity.posZ);
 
         TileEntity tileEntity = entity.worldObj.getTileEntity(new BlockPos(x, y, z));
-        if (tileEntity != null && tileEntity instanceof CbTileEntity) {
+        if (tileEntity != null && tileEntity instanceof CbTileEntity) 
+        {
             return (CbTileEntity) tileEntity;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -325,7 +339,8 @@ public class EventHandler
      * @param entity
      * @return
      */
-    private boolean isMovingOnGround(Entity entity) {
+    private boolean isMovingOnGround(Entity entity)
+    {
         return entity.onGround && (entity.motionX != 0 || entity.motionZ != 0);
     }
 
