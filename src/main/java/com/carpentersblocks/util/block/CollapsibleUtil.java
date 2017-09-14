@@ -6,7 +6,8 @@ import com.carpentersblocks.util.handler.EventHandler;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class CollapsibleUtil extends DataUtil implements IDataFacing {
+public class CollapsibleUtil extends DataUtil implements IDataFacing 
+{
 
     public double CENTER_YMAX;
     public double offset_XZNN;
@@ -19,29 +20,40 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     public final static int QUAD_XZPN = 2;
     public final static int QUAD_XZPP = 3;
     
-    public CollapsibleUtil(CbTileEntity cbTileEntity) {
+    public CollapsibleUtil(CbTileEntity cbTileEntity)
+    {
     	super(cbTileEntity.getData());
     }
     
-    public CollapsibleUtil(int cbMetadata) {
+    public CollapsibleUtil(int cbMetadata) 
+    {
     	super(cbMetadata);
     }
 
     /**
      * Returns corner number.
      */
-    public static int getHitQuad() {
-    	if (EventHandler.eventHitVector != null) {
-	    	if (Math.round(EventHandler.eventHitVector.xCoord) == 0) {
-	    		if (Math.round(EventHandler.eventHitVector.zCoord) == 0) {
+    public static int getHitQuad() 
+    {
+    	if (EventHandler.eventHitVector != null)
+    	{
+	    	if (Math.round(EventHandler.eventHitVector.xCoord) == 0)
+	    	{
+	    		if (Math.round(EventHandler.eventHitVector.zCoord) == 0)
+	    		{
 	    			return QUAD_XZNN;
-	    		} else {
+	    		} else 
+	    		{
 	    			return QUAD_XZNP;
 	    		}
-	    	} else {
-	    		if (Math.round(EventHandler.eventHitVector.zCoord) == 0) {
+	    	} else
+	    	{
+	    		if (Math.round(EventHandler.eventHitVector.zCoord) == 0)
+	    		{
 	    			return QUAD_XZPN;
-	    		} else {
+	    		} 
+	    		else 
+	    		{
 	    			return QUAD_XZPP;
 	    		}
 	    	}
@@ -52,9 +64,12 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Returns true if fully collapsed.
      */
-    public boolean isPlanar() {
-        for (int quad = 0; quad < 4; quad++) {
-            if (getQuadDepth(quad) > 0) {
+    public boolean isPlanar() 
+    {
+        for (int quad = 0; quad < 4; quad++) 
+        {
+            if (getQuadDepth(quad) > 0) 
+            {
                 return false;
             }
         }
@@ -64,8 +79,10 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Returns true if a full cube.
      */
-    public boolean isFullCube() {
-        for (int quad = 0; quad < 4; quad++) {
+    public boolean isFullCube()
+    {
+        for (int quad = 0; quad < 4; quad++)
+        {
             if (getQuadDepth(quad) < 16) {
                 return false;
             }
@@ -76,7 +93,8 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Fills Y-offsets for each corner and center of block for rendering purposes.
      */
-    public void computeOffsets() {
+    public void computeOffsets()
+    {
         double BIAS = isPlanar() ? 1.0D / 1024.0D : 0.0D; // Small offset to prevent Z-fighting at depth 0
         offset_XZNN = getQuadDepth(QUAD_XZNN) / 16.0D + BIAS;
         offset_XZNP = getQuadDepth(QUAD_XZNP) / 16.0D + BIAS;
@@ -88,9 +106,12 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
         double NE_SW = Math.abs(offset_XZPN - offset_XZNP);
 
         // Changing this to NW_SE > NE_SW will change how slopes are split
-        if (NW_SE < NE_SW) {
+        if (NW_SE < NE_SW)
+        {
             CENTER_YMAX = (offset_XZPN + offset_XZNP) / 2.0F;
-        } else {
+        } 
+        else 
+        {
             CENTER_YMAX = (offset_XZNN + offset_XZPP) / 2.0F;
         }
     }
@@ -98,9 +119,11 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Returns block depth determined by the largest quadrant.
      */
-    public float getBoundsMaxDepth() {
+    public float getBoundsMaxDepth() 
+    {
         float maxDepth = 0.0F;
-        for (int quad = 0; quad < 4; ++quad) {
+        for (int quad = 0; quad < 4; quad++) 
+        {
         	maxDepth = Math.max(maxDepth, getQuadDepth(quad) / 16.0F);
         }
         return maxDepth;
@@ -109,24 +132,30 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Will generate four boxes with max height represented by largest quadrant depth.
      */
-    public AxisAlignedBB genQuadBoundingBox(int quad) {
+    public AxisAlignedBB genQuadBoundingBox(int quad)
+    {
         float xMin = 0.0F;
         float zMin = 0.0F;
         float xMax = 1.0F;
         float zMax = 1.0F;
-        switch (quad) {
+        
+        switch (quad) 
+        {
             case QUAD_XZNN:
                 xMax = 0.5F;
                 zMax = 0.5F;
                 break;
+                
             case QUAD_XZNP:
                 xMax = 0.5F;
                 zMin = 0.5F;
                 break;
+                
             case QUAD_XZPN:
                 xMin = 0.5F;
                 zMax = 0.5F;
                 break;
+                
             case QUAD_XZPP:
                 xMin = 0.5F;
                 zMin = 0.5F;
@@ -137,12 +166,16 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
         float depth = getQuadDepth(quad) / 16.0F;
 
         // Make quads stagger no more than 0.5F so player can always walk across them
-        if (isPositive()) {
-            if (maxDepth - depth > 0.5F) {
+        if (isPositive())
+        {
+            if (maxDepth - depth > 0.5F) 
+            {
                 depth = maxDepth - 0.5F;
             }
             return new AxisAlignedBB(xMin, 0.0F, zMin, xMax, depth, zMax);
-        } else {
+        }
+        else
+        {
             return new AxisAlignedBB(xMin, 1.0F - depth, zMin, xMax, 1.0F, zMax);
         }
     }
@@ -150,8 +183,10 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Sets quad depth as value from 0 to 16.
      */
-    public static void setQuadDepth(CbTileEntity cbTileEntity, int quad, int depth) {
-        if (depth < 0 || depth > 16) {
+    public static void setQuadDepth(CbTileEntity cbTileEntity, int quad, int depth) 
+    {
+        if (depth < 0 || depth > 16) 
+        {
             return;
         }
         int data = cbTileEntity.getData();
@@ -179,7 +214,8 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     /**
      * Returns quad depth as value from 0 to 16.
      */
-    public int getQuadDepth(int quad) {
+    public int getQuadDepth(int quad)
+    {
         int depth = 0;
         int cbMetadata = getData();
         switch (quad) {
@@ -199,23 +235,34 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
         return depth;
     }
 
-    public boolean isSideSolid(EnumFacing facing) {
-    	if (isFullCube()) {
+    public boolean isSideSolid(EnumFacing facing) 
+    {
+    	if (isFullCube()) 
+    	{
     		return true;
-    	} else {
-	        switch (facing) {
+    	}
+    	else 
+    	{
+	        switch (facing) 
+	        {
 	            case DOWN:
 	                return isPositive();
+	                
 	            case UP:
 	                return !isPositive();
+	                
 	            case NORTH:
 	                return getQuadDepth(QUAD_XZNN) + getQuadDepth(QUAD_XZPN) == 32;
+	                
 	            case SOUTH:
 	                return getQuadDepth(QUAD_XZNP) + getQuadDepth(QUAD_XZPP) == 32;
+	                
 	            case WEST:
 	                return getQuadDepth(QUAD_XZNP) + getQuadDepth(QUAD_XZNN) == 32;
+	                
 	            case EAST:
 	                return getQuadDepth(QUAD_XZPN) + getQuadDepth(QUAD_XZPP) == 32;
+	                
 	            default:
 	                return true;
 	        }
@@ -223,17 +270,20 @@ public class CollapsibleUtil extends DataUtil implements IDataFacing {
     }
     
     @Override
-    public boolean setFacing(CbTileEntity cbTileEntity, EnumFacing facing) {
+    public boolean setFacing(CbTileEntity cbTileEntity, EnumFacing facing)
+    {
         int temp = (cbTileEntity.getData() & ~0x7) | facing.ordinal();
         return cbTileEntity.setData(temp);
     }
 
     @Override
-    public EnumFacing getFacing() {
+    public EnumFacing getFacing()
+    {
         return EnumFacing.getFront(getData() & 0x7);
     }
 
-    public boolean isPositive() {
+    public boolean isPositive() 
+    {
         return getFacing().equals(EnumFacing.UP);
     }
 

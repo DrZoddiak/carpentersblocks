@@ -1,4 +1,4 @@
-package com.carpentersblocks.block;
+package com.carpentersblocks.block.types;
 
 import java.util.Arrays;
 

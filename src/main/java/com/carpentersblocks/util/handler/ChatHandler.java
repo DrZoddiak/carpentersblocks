@@ -11,16 +11,19 @@ public class ChatHandler {
     /**
      * Sends a chat message to a player.
      */
-    public static void sendMessageToPlayer(String string, EntityPlayer entityPlayer) {
+    public static void sendMessageToPlayer(String string, EntityPlayer entityPlayer)
+    {
         sendMessageToPlayer(string, entityPlayer, true);
     }
 
     /**
      * Sends a chat message to a player with style override.
      */
-    public static void sendMessageToPlayer(String string, EntityPlayer entityPlayer, boolean styled) {
+    public static void sendMessageToPlayer(String string, EntityPlayer entityPlayer, boolean styled)
+    {
         TextComponentTranslation chat = new TextComponentTranslation(string, new Object[0]);
-        if (styled) {
+        if (styled) 
+        {
             chat.getStyle().setColor(TextFormatting.GOLD);
         }
         entityPlayer.addChatMessage(chat);
@@ -32,8 +35,10 @@ public class ChatHandler {
      * @param  itemStack the ItemStack
      * @return the full unlocalized string
      */
-    public static String getUnlocalizedNameEfficiently(ItemStack itemStack) {
-        if (itemStack != null && itemStack.getItem() != null) {
+    public static String getUnlocalizedNameEfficiently(ItemStack itemStack) 
+    {
+        if (itemStack != null && itemStack.getItem() != null) 
+        {
             return itemStack.getItem().getUnlocalizedNameInefficiently(itemStack) + ".name";
         }
         return "";

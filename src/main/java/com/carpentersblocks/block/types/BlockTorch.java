@@ -1,4 +1,4 @@
-package com.carpentersblocks.block;
+package com.carpentersblocks.block.types;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,14 +7,16 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.api.ICarpentersChisel;
 import com.carpentersblocks.api.ICarpentersHammer;
 import com.carpentersblocks.block.state.Property;
+import com.carpentersblocks.block.types.BlockCoverable.ActionResult;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.EntityLivingUtil;
-import com.carpentersblocks.util.attribute.AbstractAttribute.Key;
 import com.carpentersblocks.util.attribute.EnumAttributeLocation;
 import com.carpentersblocks.util.attribute.EnumAttributeType;
+import com.carpentersblocks.util.attribute.AbstractAttribute.Key;
 import com.carpentersblocks.util.block.BlockUtil;
 import com.carpentersblocks.util.handler.DesignHandler;
 import com.carpentersblocks.util.handler.EventHandler;
@@ -49,8 +51,8 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockCoverable extends Block {
-	
+public abstract class BlockTorch extends net.minecraft.block.BlockTorch
+{
     /** Block drop event for dropping attribute. */
     public static int EVENT_ID_DROP_ATTR = 0x40000000;
 
@@ -61,29 +63,33 @@ public abstract class BlockCoverable extends Block {
      * Stores actions taken on a block in order to properly play sounds,
      * decrement player inventory, and to determine if a block was altered.
      */
-    protected class ActionResult {
-
+    protected class ActionResult 
+    {
         public ItemStack itemStack;
         public boolean playSound = true;
         public boolean altered = false;
         public boolean decInv = false;
 
-        public ActionResult setSoundSource(ItemStack itemStack) {
+        public ActionResult setSoundSource(ItemStack itemStack) 
+        {
             this.itemStack = itemStack;
             return this;
         }
 
-        public ActionResult setNoSound() {
+        public ActionResult setNoSound() 
+        {
             playSound = false;
             return this;
         }
 
-        public ActionResult setAltered() {
+        public ActionResult setAltered() 
+        {
             altered = true;
             return this;
         }
 
-        public ActionResult decInventory() {
+        public ActionResult decInventory() 
+        {
             decInv = true;
             return this;
         }
@@ -92,11 +98,10 @@ public abstract class BlockCoverable extends Block {
 
     /**
      * Class constructor.
-     *
-     * @param material the block material
      */
-    public BlockCoverable(Material material) {
-        super(material);
+    public BlockTorch()
+    {
+        super();
     }
 
     /**
@@ -356,7 +361,7 @@ public abstract class BlockCoverable extends Block {
                         if (onHammerRightClick(cbTileEntity, entityPlayer)) {
                             actionResult.setAltered();
                         }
-                    } else if (ItemRegistry.enableChisel && itemStack.getItem() instanceof ICarpentersChisel && ((ICarpentersChisel)itemStack.getItem()).canUseChisel(world, entityPlayer, hand)) {
+                    } else if (Reference.enableChisel && itemStack.getItem() instanceof ICarpentersChisel && ((ICarpentersChisel)itemStack.getItem()).canUseChisel(world, entityPlayer, hand)) {
                         if (cbTileEntity.getAttributeHelper().hasAttribute(location, EnumAttributeType.COVER)) {
                             if (onChiselClick(cbTileEntity, location, hand)) {
                                 actionResult.setAltered();

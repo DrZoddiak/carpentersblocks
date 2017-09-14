@@ -13,9 +13,10 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+import static com.carpentersblocks.Reference.*;
 @SideOnly(Side.CLIENT)
-public class SpriteRegistry {
+public class SpriteRegistry
+{
 
     public static TextureAtlasSprite sprite_uncovered_full;
     public static TextureAtlasSprite sprite_uncovered_quartered;
@@ -60,17 +61,19 @@ public class SpriteRegistry {
     /**
      * This will load all icons that are used universally for all blocks.
      */
-    public void registerSprites(TextureStitchEvent.Pre event) {
-        if (event.getMap().equals(Minecraft.getMinecraft().getTextureMapBlocks())) {
+    public void registerSprites(TextureStitchEvent.Pre event)
+    {
+        if (event.getMap().equals(Minecraft.getMinecraft().getTextureMapBlocks())) 
+        {
             CarpentersBlocksCachedResources.INSTANCE.rebuildCache();
-            sprite_uncovered_solid         = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/general/solid"));
-            sprite_uncovered_full          = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/general/full_frame"));
-            sprite_uncovered_quartered     = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/general/quartered_frame"));
-            sprite_overlay_fast_grass_side = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/overlay/overlay_fast_grass_side"));
-            sprite_overlay_hay_side        = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/overlay/overlay_hay_side"));
-            sprite_overlay_snow_side       = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/overlay/overlay_snow_side"));
-            sprite_overlay_mycelium_side   = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/overlay/overlay_mycelium_side"));
-            sprite_tile_blank              = event.getMap().registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/tile/blank"));
+            sprite_uncovered_solid         = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/general/solid"));
+            sprite_uncovered_full          = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/general/full_frame"));
+            sprite_uncovered_quartered     = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/general/quartered_frame"));
+            sprite_overlay_fast_grass_side = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/overlay/overlay_fast_grass_side"));
+            sprite_overlay_hay_side        = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/overlay/overlay_hay_side"));
+            sprite_overlay_snow_side       = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/overlay/overlay_snow_side"));
+            sprite_overlay_mycelium_side   = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/overlay/overlay_mycelium_side"));
+            sprite_tile_blank              = event.getMap().registerSprite(new ResourceLocation( MOD_ID, "blocks/tile/blank"));
             sprite_design_chisel.clear();
             sprite_design_bed.clear();
             sprite_design_flower_pot.clear();

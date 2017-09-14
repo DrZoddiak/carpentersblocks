@@ -1,8 +1,8 @@
 package com.carpentersblocks.util.block;
 
 import com.carpentersblocks.api.IWrappableBlock;
-import com.carpentersblocks.block.BlockCoverable;
 import com.carpentersblocks.block.state.Property;
+import com.carpentersblocks.block.types.BlockCoverable;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.attribute.AbstractAttribute;
 import com.carpentersblocks.util.attribute.AttributeHelper;

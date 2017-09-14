@@ -1,10 +1,12 @@
 package com.carpentersblocks.util.block;
 
-public class DataUtil {
+public class DataUtil 
+{
 
 	private int _cbMetadata;
 	
-	public DataUtil(int cbMetadata) {
+	public DataUtil(int cbMetadata)
+	{
 		_cbMetadata = cbMetadata;
 	}
 	

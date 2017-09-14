@@ -1,6 +1,7 @@
 package com.carpentersblocks.proxy;
 
 import com.carpentersblocks.CarpentersBlocks;
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.handler.DesignHandler;
 import com.carpentersblocks.util.handler.EventHandler;
@@ -18,14 +19,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
 
-    public void preInit(FMLPreInitializationEvent event, Configuration config) {
+    public void preInit(FMLPreInitializationEvent event, Configuration config) 
+    {
         FeatureRegistry.preInit(event, config); // Do before block and item registration
         BlockRegistry.preInit(event, config); // Do before item registration
         ItemRegistry.preInit(event, config);
         DesignHandler.preInit(event);        
     }
     
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) 
+    {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         CarpentersBlocks.channel.register(new PacketHandler());
 
@@ -34,7 +37,8 @@ public class CommonProxy {
         ItemRegistry.init(event);
 
         // Initialize overlays
-        if (FeatureRegistry.enableOverlays) {
+        if (FeatureRegistry.enableOverlays) 
+        {
             OverlayHandler.init();
         }
 
@@ -51,7 +55,8 @@ public class CommonProxy {
         //GameRegistry.registerTileEntity(    CbGarageDoorTileEntity.class,       "TileEntityCarpentersGarageDoor");
 
         // Register entities
-        if (ItemRegistry.enableTile) {
+        if (Reference.enableTile) 
+        {
             //EntityRegistry.registerModEntity(EntityCarpentersTile.class, "CarpentersTile", ENTITY_ID_TILE, CarpentersBlocks.instance, 64, 999, false);
         }
     }

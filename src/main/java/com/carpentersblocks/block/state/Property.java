@@ -10,8 +10,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
-public class Property {
-
+public class Property 
+{
 	public static final IProperty[] listedProperties = new IProperty[] { BlockDirectional.FACING };
 	public static final List<IUnlistedProperty> unlistedProperties;
 	public static final IUnlistedProperty ADDL_INT;
@@ -21,7 +21,8 @@ public class Property {
 	public static final IUnlistedProperty<Integer> CB_METADATA;
 	public static final IUnlistedProperty<Boolean[]> RENDER_FACE;
 
-	static {
+	static 
+	{
 		unlistedProperties = new ArrayList<IUnlistedProperty>();
 		unlistedProperties.add(ADDL_INT = new UnlistedProperty(Integer.class, "cbAddlInt"));
 		unlistedProperties.add(ATTR_BLOCKSTATE = new UnlistedProperty(IBlockState.class, "cbAttrBlockState"));
@@ -31,36 +32,40 @@ public class Property {
 		unlistedProperties.add(RENDER_FACE = new UnlistedProperty(Boolean[].class, "cbRenderFace"));
 	}
 	
-	private static class UnlistedProperty implements IUnlistedProperty {
+	private static class UnlistedProperty implements IUnlistedProperty 
+	{
 
 		private Class _class;
 		private String _name;
 
-		public UnlistedProperty(Class clazz, String name) {
+		public UnlistedProperty(Class clazz, String name) 
+		{
 			_class = clazz;
 			_name = name;
 		}
 		
 		@Override
-		public String getName() {
+		public String getName() 
+		{
 			return _name;
 		}
 
 		@Override
-		public boolean isValid(Object value) {
+		public boolean isValid(Object value) 
+		{
 			return true;
 		}
 
 		@Override
-		public Class getType() {
+		public Class getType() 
+		{
 			return _class;
 		}
 
 		@Override
-		public String valueToString(Object value) {
+		public String valueToString(Object value) 
+		{
 			return value.toString();
 		}
-		
 	}
-
 }

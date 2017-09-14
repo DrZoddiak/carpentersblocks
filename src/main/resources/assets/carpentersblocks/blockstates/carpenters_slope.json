@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "carpentersblocks:carpenters_slope"},
+	"inventory": { "model": "carpentersblocks:carpenters_slope" }
+    }
+}

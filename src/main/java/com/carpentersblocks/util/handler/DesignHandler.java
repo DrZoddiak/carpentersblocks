@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Level;
 
 import com.carpentersblocks.CarpentersBlocks;
 import com.carpentersblocks.CarpentersBlocksCachedResources;
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.util.ModLogger;
 import com.carpentersblocks.util.registry.BlockRegistry;
 import com.carpentersblocks.util.registry.FeatureRegistry;
@@ -29,7 +30,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+import static com.carpentersblocks.Reference.*;
 public class DesignHandler {
 
     public static List<String> listChisel    = new ArrayList<String>();
@@ -107,7 +108,7 @@ public class DesignHandler {
 
     @SideOnly(Side.CLIENT)
     public static void registerSprites(TextureMap textureMap) {
-        if (BlockRegistry.enableBed) {
+        if (Reference.enableBed) {
             for (String spriteName : listBed) {
                 TextureAtlasSprite[] sprites = new TextureAtlasSprite[8];
                 for (int count = 0; count < 8; ++count) {
@@ -118,17 +119,17 @@ public class DesignHandler {
         }
         if (FeatureRegistry.enableChiselDesigns) {
             for (String spriteName : listChisel) {
-            	SpriteRegistry.sprite_design_chisel.add(textureMap.registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID, PATH_CHISEL + spriteName)));
+            	SpriteRegistry.sprite_design_chisel.add(textureMap.registerSprite(new ResourceLocation( MOD_ID, PATH_CHISEL + spriteName)));
             }
         }
-        if (BlockRegistry.enableFlowerPot) {
+        if (Reference.enableFlowerPot) {
             for (String spriteName : listFlowerPot) {
-            	SpriteRegistry.sprite_design_flower_pot.add(textureMap.registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID + ":" + PATH_FLOWER_POT + spriteName)));
+            	SpriteRegistry.sprite_design_flower_pot.add(textureMap.registerSprite(new ResourceLocation( MOD_ID + ":" + PATH_FLOWER_POT + spriteName)));
             }
         }
-        if (ItemRegistry.enableTile) {
+        if (Reference.enableTile) {
             for (String spriteName : listTile) {
-            	SpriteRegistry.sprite_design_tile.add(textureMap.registerSprite(new ResourceLocation(CarpentersBlocks.MOD_ID + ":" + PATH_TILE + spriteName)));
+            	SpriteRegistry.sprite_design_tile.add(textureMap.registerSprite(new ResourceLocation( MOD_ID + ":" + PATH_TILE + spriteName)));
             }
         }
     }
@@ -170,7 +171,7 @@ public class DesignHandler {
     public static ArrayList<BufferedImage> getBedIcons(IResourceManager resourceManager, String atlas) {
         ArrayList<BufferedImage> imageList = new ArrayList<BufferedImage>();
         try {
-            ResourceLocation resourceLocation = new ResourceLocation(CarpentersBlocks.MOD_ID + ":textures/blocks/designs/bed/" + atlas + ".png");
+            ResourceLocation resourceLocation = new ResourceLocation( MOD_ID + ":textures/blocks/designs/bed/" + atlas + ".png");
             BufferedImage image = ImageIO.read(resourceManager.getResource(resourceLocation).getInputStream());
 
             int size = image.getWidth() / 3;

@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-
+import static com.carpentersblocks.Reference.*;
 public class ModelBlock implements IModel {
 	
     @Override
@@ -25,7 +25,7 @@ public class ModelBlock implements IModel {
 
     @Override
     public Collection<ResourceLocation> getTextures() {
-        return ImmutableSet.of(new ResourceLocation(CarpentersBlocks.MOD_ID, "blocks/general/full_frame"));
+        return ImmutableSet.of(new ResourceLocation( MOD_ID, "blocks/general/quartered_frame"));
     }
 	
     @Override

@@ -7,25 +7,24 @@ import com.carpentersblocks.item.ItemCarpentersHammer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-
+import static com.carpentersblocks.Reference.*;
 public class ItemRegistry {
 
     public static Item itemCarpentersHammer;
     public static Item itemCarpentersChisel;
     public static Item itemCarpentersDoor;
     public static Item itemCarpentersBed;
-    public static Item itemCarpentersTile;
-
-    public static boolean enableHammer                  = true;
-    public static boolean enableChisel                  = true;
-    public static boolean enableTile                    = true;
+    public static Item itemCarpentersTile; 
+    
     public static int     itemCarpentersToolsUses       = 400;
     public static boolean itemCarpentersToolsDamageable = true;
 
@@ -64,7 +63,7 @@ public class ItemRegistry {
             	itemCarpentersHammer.setMaxDamage(itemCarpentersToolsUses);
             }
             if (Side.CLIENT.equals(event.getSide())) {
-            	ModelLoader.setCustomModelResourceLocation(itemCarpentersHammer, 0, new ModelResourceLocation(CarpentersBlocks.MOD_ID + ":" + "carpenters_hammer"));
+            	ModelLoader.setCustomModelResourceLocation(itemCarpentersHammer, 0, new ModelResourceLocation(MOD_ID + ":" + "carpenters_hammer"));
             }
         }
         if (enableChisel) {
@@ -78,7 +77,7 @@ public class ItemRegistry {
             	itemCarpentersChisel.setMaxDamage(itemCarpentersToolsUses);
             }
             if (Side.CLIENT.equals(event.getSide())) {
-            	ModelLoader.setCustomModelResourceLocation(itemCarpentersChisel, 0, new ModelResourceLocation(CarpentersBlocks.MOD_ID + ":" + "carpenters_chisel"));
+            	ModelLoader.setCustomModelResourceLocation(itemCarpentersChisel, 0, new ModelResourceLocation(MOD_ID + ":" + "carpenters_chisel"));
             }
         }
         /*
@@ -97,13 +96,13 @@ public class ItemRegistry {
     }
 
     public static void init(FMLInitializationEvent event) {
-/*        if (enableHammer) {
-            GameRegistry.addRecipe(new ItemStack(itemCarpentersHammer, 1), new Object[] { "XX ", " YX", " Y ", 'X', Items.iron_ingot, 'Y', BlockRegistry.blockCarpentersBlock });
+        if (enableHammer) {
+            GameRegistry.addRecipe(new ItemStack(itemCarpentersHammer, 1), new Object[] { "XX ", " YX", " Y ", 'X', Items.IRON_INGOT, 'Y', BlockRegistry.blockCarpentersBlock });
         }
         if (enableChisel) {
-            GameRegistry.addRecipe(new ItemStack(itemCarpentersChisel, 1), new Object[] { "X", "Y", 'X', Items.iron_ingot, 'Y', BlockRegistry.blockCarpentersBlock });
+            GameRegistry.addRecipe(new ItemStack(itemCarpentersChisel, 1), new Object[] { "X", "Y", 'X', Items.IRON_INGOT, 'Y', BlockRegistry.blockCarpentersBlock });
         }
-        if (enableTile) {
+        /*        if (enableTile) {
             GameRegistry.addRecipe(new ItemStack(itemCarpentersTile, recipeQuantityTile), new Object[] { "XXX", "YYY", 'X', Blocks.hardened_clay, 'Y', BlockRegistry.blockCarpentersBlock });
         }
         if (BlockRegistry.enableDoor) {

@@ -2,8 +2,10 @@ package com.carpentersblocks.util.handler;
 
 import com.carpentersblocks.api.ICarpentersChisel;
 import com.carpentersblocks.api.ICarpentersHammer;
+import com.carpentersblocks.network.PacketSlopeSelect;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.block.BlockUtil;
+import com.carpentersblocks.util.registry.BlockRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -31,8 +33,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EventHandler {
-
+public class EventHandler 
+{
 	public static EnumFacing eventFace;
 	public static EnumHand eventHand;
 	public static Vec3d eventHitVector;
@@ -51,7 +53,8 @@ public class EventHandler {
         }*/
     }
 
-    private boolean isValidBlockEvent(World world, BlockPos pos) {
+    private boolean isValidBlockEvent(World world, BlockPos pos) 
+    {
     	TileEntity tileEntity = world.getTileEntity(pos);
     	return tileEntity != null && tileEntity instanceof CbTileEntity;
     }
@@ -61,17 +64,21 @@ public class EventHandler {
      * Used to prevent block destruction if block is a Carpenter's Block
      * and player is holding a Carpenter's tool.
      */
-    public void onBlockBreakEvent(BlockEvent.BreakEvent event) {
-    	if (isValidBlockEvent(event.getWorld(), event.getPos())) {
+    public void onBlockBreakEvent(BlockEvent.BreakEvent event) 
+    {
+    	if (isValidBlockEvent(event.getWorld(), event.getPos())) 
+    	{
         	ItemStack itemStack = event.getPlayer().getHeldItemMainhand();
         	boolean hasTool = itemStack != null && (itemStack.getItem() instanceof ICarpentersHammer || itemStack.getItem() instanceof ICarpentersChisel);
-            if (hasTool && event.getPlayer().capabilities.isCreativeMode) {
+            if (hasTool && event.getPlayer().capabilities.isCreativeMode) 
+            {
             	event.setCanceled(true);
             }
     	}
     }
 
-    private Vec3d getNormalizedHitVec(Vec3d vec, BlockPos pos) {
+    private Vec3d getNormalizedHitVec(Vec3d vec, BlockPos pos) 
+    {
     	double x = Math.abs(vec.xCoord - pos.getX());
     	double y = Math.abs(vec.yCoord - pos.getY());
     	double z = Math.abs(vec.zCoord - pos.getZ());
@@ -137,16 +144,20 @@ public class EventHandler {
     public void onMouseEvent(MouseEvent event)
     {
         // We only want to process wheel events
-        if (event.getButton() < 0) {
+        if (event.getButton() < 0) 
+        {
             EntityPlayer entityPlayer = Minecraft.getMinecraft().thePlayer;
-            if (entityPlayer != null && entityPlayer.isSneaking()) {
+            if (entityPlayer != null && entityPlayer.isSneaking())
+            {
                 ItemStack itemStack = entityPlayer.getHeldItemMainhand();
-/*                if (itemStack != null && itemStack.getItem() instanceof ItemBlock && BlockProperties.toBlock(itemStack).equals(BlockRegistry.blockCarpentersSlope)) {
-                    if (event.getDwheel() != 0) {
-                        PacketHandler.sendPacketToServer(new PacketSlopeSelect(entityPlayer.inventory.currentItem, event.dwheel > 0));
+                if (itemStack != null && itemStack.getItem() instanceof ItemBlock &&  Block.getBlockFromItem(itemStack.getItem()).equals(BlockRegistry.blockCarpentersSlope))
+                {
+                    if (event.getDwheel() != 0) 
+                    {
+                        PacketHandler.sendPacketToServer(new PacketSlopeSelect(entityPlayer.inventory.currentItem, event.getDwheel() > 0));
                     }
                     event.setCanceled(true);
-                }*/
+                } 
             }
         }
     }

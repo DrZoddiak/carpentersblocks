@@ -2,31 +2,39 @@ package com.carpentersblocks.network;
 
 import java.io.IOException;
 
+import com.carpentersblocks.block.BlockCarpentersSlope;
+import com.carpentersblocks.util.registry.BlockRegistry;
+
 import io.netty.buffer.ByteBufInputStream;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
-public class PacketSlopeSelect implements ICarpentersPacket {
+public class PacketSlopeSelect implements ICarpentersPacket 
+{
 
     private int slot = 0;
     private boolean incDamage = false;
 
-    public PacketSlopeSelect() {}
+    public PacketSlopeSelect(){}
 
-    public PacketSlopeSelect(int slot, boolean incDamage) {
+    public PacketSlopeSelect(int slot, boolean incDamage) 
+    {
         this.slot = slot;
         this.incDamage = incDamage;
     }
 
     @Override
-    public void processData(EntityPlayer entityPlayer, ByteBufInputStream bbis) throws IOException {
+    public void processData(EntityPlayer entityPlayer, ByteBufInputStream bbis) throws IOException 
+    {
         int slot = bbis.readInt();
         boolean incDmg = bbis.readBoolean();
         ItemStack itemStack = entityPlayer.inventory.getStackInSlot(slot);
 
         // TODO: Implement with slopes
-/*        if (itemStack != null && BlockProperties.toBlock(itemStack).equals(BlockRegistry.blockCarpentersSlope)) {
+        if (itemStack != null && Block.getBlockFromItem(itemStack.getItem()).equals(BlockRegistry.blockCarpentersSlope)) 
+ 		  {
 
             int maxDmg = BlockCarpentersSlope.slopeType.length - 1;
             int itemDmg = itemStack.getItemDamage();
@@ -40,13 +48,13 @@ public class PacketSlopeSelect implements ICarpentersPacket {
 
             itemStack.setItemDamage(itemDmg);
 
-        }*/
+        } 
     }
 
     @Override
-    public void appendData(PacketBuffer buffer) throws IOException {
+    public void appendData(PacketBuffer buffer) throws IOException 
+    {
         buffer.writeInt(slot);
         buffer.writeBoolean(incDamage);
-    }
-
+    } 
 }

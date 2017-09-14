@@ -12,8 +12,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * as used as a Carpenter's Blocks cover, or to add compatibility that is not
  * otherwise possible.
  */
-public interface IWrappableBlock {
-
+public interface IWrappableBlock 
+{
     /**
      * Effectively overrides Block.colorMultiplier
      */
@@ -70,5 +70,4 @@ public interface IWrappableBlock {
      * Effectively overrides Block.canEntityDestroy
      */
     public boolean canEntityDestroy(IBlockAccess iba, int x, int y, int z, Entity e, Block b, int meta);
-
 }

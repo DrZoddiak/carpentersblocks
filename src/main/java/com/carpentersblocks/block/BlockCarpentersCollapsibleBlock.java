@@ -8,11 +8,13 @@ import static com.carpentersblocks.util.block.CollapsibleUtil.QUAD_XZPP;
 import java.util.Arrays;
 import java.util.List;
 
+import com.carpentersblocks.block.types.BlockFacing;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.block.CollapsibleUtil;
 import com.carpentersblocks.util.registry.ItemRegistry;
 
 import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -36,13 +38,15 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     public BlockCarpentersCollapsibleBlock(Material material) {
         super(material);
         setLightOpacity(0);
+        setSoundType(SoundType.WOOD);
     }
 
     @Override
     /**
      * Decrease quad depth.
      */
-    protected boolean onHammerLeftClick(CbTileEntity cbTileEntity, EntityPlayer entityPlayer) {
+    protected boolean onHammerLeftClick(CbTileEntity cbTileEntity, EntityPlayer entityPlayer) 
+    {
     	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
         int quad = util.getHitQuad();
         int depth = util.getQuadDepth(quad);
@@ -55,7 +59,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Increase quad depth.
      */
-    protected boolean onHammerRightClick(CbTileEntity cbTileEntity, EntityPlayer entityPlayer) {
+    protected boolean onHammerRightClick(CbTileEntity cbTileEntity, EntityPlayer entityPlayer)
+    {
     	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
         int quad = util.getHitQuad();
         int depth = util.getQuadDepth(quad);
@@ -68,13 +73,16 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Damages hammer with a chance to not damage.
      */
-    protected void damageItemWithChance(World world, EntityPlayer entityPlayer, EnumHand hand) {
-        if (world.rand.nextFloat() <= ItemRegistry.itemHammerDamageChanceFromCollapsible) {
+    protected void damageItemWithChance(World world, EntityPlayer entityPlayer, EnumHand hand) 
+    {
+        if (world.rand.nextFloat() <= ItemRegistry.itemHammerDamageChanceFromCollapsible)
+        {
             super.damageItemWithChance(world, entityPlayer, hand);
         }
     }
     
-    private boolean isSameOrientation(CbTileEntity cbTileEntity1, CbTileEntity cbTileEntity2) {
+    private boolean isSameOrientation(CbTileEntity cbTileEntity1, CbTileEntity cbTileEntity2) 
+    {
     	return (new CollapsibleUtil(cbTileEntity1).getFacing()).equals(new CollapsibleUtil(cbTileEntity2).getFacing());
     }
 
@@ -82,7 +90,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
      * Will attempt to smooth transitions to any adjacent collapsible blocks
      * given a cbTileEntity and source quadrant.
      */
-    private void smoothAdjacentCollapsibles(CbTileEntity cbTileEntity, int src_quadrant) {
+    private void smoothAdjacentCollapsibles(CbTileEntity cbTileEntity, int src_quadrant)
+    {
         CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
         CbTileEntity cbTileEntity_XN   = getTileEntity(cbTileEntity.getWorld(), cbTileEntity.getPos().add(-1,  0,  0));
         CbTileEntity cbTileEntity_XP   = getTileEntity(cbTileEntity.getWorld(), cbTileEntity.getPos().add( 1,  0,  0));
@@ -94,48 +103,63 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
         CbTileEntity cbTileEntity_XZPP = getTileEntity(cbTileEntity.getWorld(), cbTileEntity.getPos().add( 1,  0,  1));
         int depth = util.getQuadDepth(src_quadrant);
 
-        switch (src_quadrant) {
+        switch (src_quadrant)
+        {
             case QUAD_XZNN:
-                if (cbTileEntity_ZN != null && isSameOrientation(cbTileEntity, cbTileEntity_ZN)) {
+                if (cbTileEntity_ZN != null && isSameOrientation(cbTileEntity, cbTileEntity_ZN)) 
+                {
                 	util.setQuadDepth(cbTileEntity_ZN, QUAD_XZNP, depth);
                 }
-                if (cbTileEntity_XZNN != null && isSameOrientation(cbTileEntity, cbTileEntity_XZNN)) {
+                if (cbTileEntity_XZNN != null && isSameOrientation(cbTileEntity, cbTileEntity_XZNN)) 
+                {
                 	util.setQuadDepth(cbTileEntity_XZNN, QUAD_XZPP, depth);
                 }
-                if (cbTileEntity_XN != null && isSameOrientation(cbTileEntity, cbTileEntity_XN)) {
+                if (cbTileEntity_XN != null && isSameOrientation(cbTileEntity, cbTileEntity_XN)) 
+                {
                 	util.setQuadDepth(cbTileEntity_XN, QUAD_XZPN, depth);
                 }
                 break;
+                
             case QUAD_XZNP:
-                if (cbTileEntity_XN != null && isSameOrientation(cbTileEntity, cbTileEntity_XN)) {
+                if (cbTileEntity_XN != null && isSameOrientation(cbTileEntity, cbTileEntity_XN)) 
+                {
                 	util.setQuadDepth(cbTileEntity_XN, QUAD_XZPP, depth);
                 }
-                if (cbTileEntity_XZNP != null && isSameOrientation(cbTileEntity, cbTileEntity_XZNP)) {
+                if (cbTileEntity_XZNP != null && isSameOrientation(cbTileEntity, cbTileEntity_XZNP)) 
+                {
                 	util.setQuadDepth(cbTileEntity_XZNP, QUAD_XZPN, depth);
                 }
-                if (cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP)) {
+                if (cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP))
+                {
                 	util.setQuadDepth(cbTileEntity_ZP, QUAD_XZNN, depth);
                 }
                 break;
+                
             case QUAD_XZPN:
-                if (cbTileEntity_XP != null && isSameOrientation(cbTileEntity, cbTileEntity_XP)) {
+                if (cbTileEntity_XP != null && isSameOrientation(cbTileEntity, cbTileEntity_XP))
+                {
                 	util.setQuadDepth(cbTileEntity_XP, QUAD_XZNN, depth);
                 }
-                if (cbTileEntity_XZPN != null && isSameOrientation(cbTileEntity, cbTileEntity_XZPN)) {
+                if (cbTileEntity_XZPN != null && isSameOrientation(cbTileEntity, cbTileEntity_XZPN))
+                {
                 	util.setQuadDepth(cbTileEntity_XZPN, QUAD_XZNP, depth);
                 }
-                if (cbTileEntity_ZN != null && isSameOrientation(cbTileEntity, cbTileEntity_ZN)) {
+                if (cbTileEntity_ZN != null && isSameOrientation(cbTileEntity, cbTileEntity_ZN))
+                {
                 	util.setQuadDepth(cbTileEntity_ZN, QUAD_XZPP, depth);
                 }
                 break;
             case QUAD_XZPP:
-                if (cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP)) {
+                if (cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP)) 
+                {
                 	util.setQuadDepth(cbTileEntity_ZP, QUAD_XZPN, depth);
                 }
-                if (cbTileEntity_XZPP != null && isSameOrientation(cbTileEntity, cbTileEntity_XZPP)) {
+                if (cbTileEntity_XZPP != null && isSameOrientation(cbTileEntity, cbTileEntity_XZPP)) 
+                {
                 	util.setQuadDepth(cbTileEntity_XZPP, QUAD_XZNN, depth);
                 }
-                if (cbTileEntity_XP != null && isSameOrientation(cbTileEntity, cbTileEntity_XP)) {
+                if (cbTileEntity_XP != null && isSameOrientation(cbTileEntity, cbTileEntity_XP)) 
+                {
                 	util.setQuadDepth(cbTileEntity_XP, QUAD_XZNP, depth);
                 }
                 break;
@@ -146,14 +170,19 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Updates the blocks bounds based on its current state. Args: world, x, y, z
      */
-    public AxisAlignedBB getBoundingBox(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+    public AxisAlignedBB getBoundingBox(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) 
+    {
         CbTileEntity cbTileEntity = getTileEntity(blockAccess, blockPos);
-        if (cbTileEntity != null) {
+        if (cbTileEntity != null)
+        {
         	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
 	        float maxDepth = util.getBoundsMaxDepth();
-	        if (util.isPositive()) {
+	        if (util.isPositive())
+	        {
 	            return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, maxDepth, 1.0F);
-	        } else {
+	        } 
+	        else 
+	        {
 	        	return new AxisAlignedBB(0.0F, 1.0F - maxDepth, 0.0F, 1.0F, 1.0F, 1.0F);
 	        }
         }
@@ -164,9 +193,11 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Checks if the block is a solid face on the given side, used by placement logic.
      */
-    public boolean isSideSolid(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, EnumFacing facing) {
+    public boolean isSideSolid(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, EnumFacing facing) 
+    {
         CbTileEntity cbTileEntity = getTileEntity(blockAccess, blockPos);
-        if (cbTileEntity != null) {
+        if (cbTileEntity != null) 
+        {
         	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
 	        if (isBlockSolid(blockAccess, blockPos, facing)) {
 	            return util.isSideSolid(facing);
@@ -178,9 +209,11 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Returns true if a slope should end at the given coords
      */
-    private boolean isSlopeBoundary(World world, BlockPos blockPos) {
+    private boolean isSlopeBoundary(World world, BlockPos blockPos)
+    {
         CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-        if (cbTileEntity != null) {
+        if (cbTileEntity != null)
+        {
             return true;
         }
         boolean blocksMovement_Y = world.getBlockState(blockPos).getMaterial().blocksMovement();
@@ -191,9 +224,12 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Scan X axis for slopes
      */
-    private int scanX(World world, BlockPos blockPos, int dir, int maxDist) {
-        for (int nx = blockPos.getX() + dir; nx != blockPos.getX() + maxDist * dir; nx += dir) {
-            if (isSlopeBoundary(world, new BlockPos(nx, blockPos.getY(), blockPos.getZ()))) {
+    private int scanX(World world, BlockPos blockPos, int dir, int maxDist) 
+    {
+        for (int nx = blockPos.getX() + dir; nx != blockPos.getX() + maxDist * dir; nx += dir)
+        {
+            if (isSlopeBoundary(world, new BlockPos(nx, blockPos.getY(), blockPos.getZ()))) 
+            {
                 return nx;
             }
         }
@@ -203,9 +239,12 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Scan Z axis for slopes
      */
-    private int scanZ(World world, BlockPos blockPos, int dir, int maxDist) {
-        for (int nz = blockPos.getZ() + dir; nz != blockPos.getZ() + maxDist * dir; nz += dir) {
-            if (isSlopeBoundary(world, new BlockPos(blockPos.getX(), blockPos.getY(), nz))) {
+    private int scanZ(World world, BlockPos blockPos, int dir, int maxDist) 
+    {
+        for (int nz = blockPos.getZ() + dir; nz != blockPos.getZ() + maxDist * dir; nz += dir) 
+        {
+            if (isSlopeBoundary(world, new BlockPos(blockPos.getX(), blockPos.getY(), nz)))
+            {
                 return nz;
             }
         }
@@ -215,9 +254,11 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Returns block height
      */
-    private static int getBlockHeight(IBlockAccess blockAccess, BlockPos blockPos) {
+    private static int getBlockHeight(IBlockAccess blockAccess, BlockPos blockPos)
+    {
     	IBlockState blockState = blockAccess.getBlockState(blockPos);
-        if (!blockState.getMaterial().blocksMovement()) {
+        if (!blockState.getMaterial().blocksMovement()) 
+        {
             return 0;
         }
         return (int) (blockState.getBoundingBox(blockAccess, blockPos).maxY * 16.0);
@@ -227,9 +268,11 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
      */
-    public IBlockState onBlockPlaced(World world, BlockPos blockPos, EnumFacing facing, float hitX, float hitY, float hitZ, int metadata, EntityLivingBase entityLivingBase) {
+    public IBlockState onBlockPlaced(World world, BlockPos blockPos, EnumFacing facing, float hitX, float hitY, float hitZ, int metadata, EntityLivingBase entityLivingBase)
+    {
         // If side not supported, select best side based on y hit coordinates
-        if (!canAttachToFacing(facing)) {
+        if (!canAttachToFacing(facing))
+        {
         	EnumFacing verticalFacing = hitY > 0.5F ? EnumFacing.DOWN : EnumFacing.UP;
         	return getDefaultState().withProperty(BlockDirectional.FACING, verticalFacing);
         }
@@ -240,16 +283,21 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Checks to see if you can place this block can be placed on that side of a block: BlockLever overrides
      */
-    public boolean canPlaceBlockOnSide(World world, BlockPos blockPos, EnumFacing facing) {
-        if (!canAttachToFacing(facing)) {
+    public boolean canPlaceBlockOnSide(World world, BlockPos blockPos, EnumFacing facing)
+    {
+        if (!canAttachToFacing(facing)) 
+        {
             EnumFacing.Plane plane = EnumFacing.Plane.VERTICAL;
             for (EnumFacing dir : plane.facings()) {
-            	if (world.isSideSolid(blockPos.offset(dir.getOpposite()), dir)) {
+            	if (world.isSideSolid(blockPos.offset(dir.getOpposite()), dir))
+            	{
             		return true;
             	}
             }
             return false;
-        } else {
+        } 
+        else 
+        {
             return true;
         }
     }
@@ -258,13 +306,16 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
     /**
      * Called when the block is placed in the world.
      */
-    public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase entityLivingBase, ItemStack itemStack) {
+    public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase entityLivingBase, ItemStack itemStack) 
+    {
         super.onBlockPlacedBy(world, blockPos, blockState, entityLivingBase, itemStack);
 
         // If sneaking, skip auto-setting quadrant depths
-        if (!entityLivingBase.isSneaking()) {
+        if (!entityLivingBase.isSneaking()) 
+        {
             CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-            if (cbTileEntity != null) {
+            if (cbTileEntity != null) 
+            {
                 // Create a linear slope from neighbor blocks and collapsible quadrants
             	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
 
@@ -286,38 +337,50 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
                 int height_XZNN = MIN_HEIGHT, height_XZPN = MIN_HEIGHT, height_XZPP = MIN_HEIGHT, height_XZNP = MIN_HEIGHT;
                 int hxn1, hxn2;
                 
-                if(cbTileEntity_XN != null && isSameOrientation(cbTileEntity, cbTileEntity_XN)) {
+                if(cbTileEntity_XN != null && isSameOrientation(cbTileEntity, cbTileEntity_XN))
+                {
                 	CollapsibleUtil utilXN = new CollapsibleUtil(cbTileEntity_XN);
                     hxn1 = utilXN.getQuadDepth(QUAD_XZPN);
                     hxn2 = utilXN.getQuadDepth(QUAD_XZPP);
-                } else {
+                } 
+                else 
+                {
                     hxn1 = hxn2 = getBlockHeight(world, blockPos.add(-1, 0, 0));
                 }
 
                 int hxp1, hxp2;
-                if(cbTileEntity_XP != null && isSameOrientation(cbTileEntity, cbTileEntity_XP)) {
+                if(cbTileEntity_XP != null && isSameOrientation(cbTileEntity, cbTileEntity_XP)) 
+                {
                 	CollapsibleUtil utilXP = new CollapsibleUtil(cbTileEntity_XP);
                     hxp1 = utilXP.getQuadDepth(QUAD_XZNN);
                     hxp2 = utilXP.getQuadDepth(QUAD_XZNP);
-                } else {
+                } 
+                else
+                {
                     hxp1 = hxp2 = getBlockHeight(world, blockPos.add(1, 0, 0));
                 }
 
                 int hzn1, hzn2;
-                if(cbTileEntity_ZN != null && isSameOrientation(cbTileEntity, cbTileEntity_ZN)) {
+                if(cbTileEntity_ZN != null && isSameOrientation(cbTileEntity, cbTileEntity_ZN)) 
+                {
                 	CollapsibleUtil utilZN = new CollapsibleUtil(cbTileEntity_ZN);
                     hzn1 = utilZN.getQuadDepth(QUAD_XZNP);
                     hzn2 = utilZN.getQuadDepth(QUAD_XZPP);
-                } else {
+                } 
+                else 
+                {
                     hzn1 = hzn2 = getBlockHeight(world, blockPos.add(0, 0, -1));
                 }
 
                 int hzp1, hzp2;
-                if(cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP)) {
+                if(cbTileEntity_ZP != null && isSameOrientation(cbTileEntity, cbTileEntity_ZP)) 
+                {
                 	CollapsibleUtil utilZP = new CollapsibleUtil(cbTileEntity_ZP);
                     hzp1 = utilZP.getQuadDepth(QUAD_XZNN);
                     hzp2 = utilZP.getQuadDepth(QUAD_XZPN);
-                } else {
+                } 
+                else 
+                {
                     hzp1 = hzp2 = getBlockHeight(world, blockPos.add(0, 0, 1));
                 }
 
@@ -355,11 +418,14 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
      * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
      */
     @Override
-    public void addCollisionBoxToList(IBlockState blockState, World world, BlockPos blockPos, AxisAlignedBB axisAlignedBB, List<AxisAlignedBB> collidingBoxes, Entity entity) {
+    public void addCollisionBoxToList(IBlockState blockState, World world, BlockPos blockPos, AxisAlignedBB axisAlignedBB, List<AxisAlignedBB> collidingBoxes, Entity entity) 
+    {
     	CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-        if (cbTileEntity != null) {
+        if (cbTileEntity != null) 
+        {
 	    	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
-	        for (int quad = 0; quad < 4; ++quad) {
+	        for (int quad = 0; quad < 4; ++quad)
+	        {
 	        	addCollisionBoxToList(blockPos, axisAlignedBB, collidingBoxes, util.genQuadBoundingBox(quad));
 	        }
     	}
@@ -370,9 +436,11 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
      * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit. Args: world,
      * x, y, z, startVec, endVec
      */
-    public RayTraceResult collisionRayTrace(IBlockState blockState, World world, BlockPos blockPos, Vec3d start, Vec3d end) {
+    public RayTraceResult collisionRayTrace(IBlockState blockState, World world, BlockPos blockPos, Vec3d start, Vec3d end)
+    {
     	CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-        if (cbTileEntity == null) {
+        if (cbTileEntity == null) 
+        {
         	return super.rayTrace(blockPos, start, end, FULL_BLOCK_AABB);
         }
 	    CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
@@ -381,12 +449,15 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
         double maxDist = 0.0D;
 
         // Determine if ray trace is a hit on block
-        for (int quad = 0; quad < 4; ++quad) {
+        for (int quad = 0; quad < 4; ++quad) 
+        {
             AxisAlignedBB box = util.genQuadBoundingBox(quad);
             RayTraceResult traceResult = rayTrace(blockPos, start, end, box);
-            if (traceResult != null) {
+            if (traceResult != null) 
+            {
                 currDist = traceResult.hitVec.squareDistanceTo(end);
-                if (currDist > maxDist) {
+                if (currDist > maxDist)
+                {
                     finalTrace = traceResult;
                     maxDist = currDist;
                 }
@@ -431,7 +502,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
      * @return whether side is supported
      */
     @Override
-    public boolean canAttachToFacing(EnumFacing facing) {
+    public boolean canAttachToFacing(EnumFacing facing) 
+    {
         return Arrays.asList(EnumFacing.Plane.VERTICAL.facings()).contains(facing);
     }
 
@@ -441,33 +513,39 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing {
      * @return whether block can float freely
      */
     @Override
-    public boolean canFloat() {
+    public boolean canFloat() 
+    {
         return true;
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState blockState) {
+    public boolean isOpaqueCube(IBlockState blockState)
+    {
         return false;
     }
     
     @Override
-    public boolean isFullCube(IBlockState state) {
+    public boolean isFullCube(IBlockState state) 
+    {
     	return false;
     }
 
 	@Override
-	public void setFacing(CbTileEntity cbTileEntity, EnumFacing facing) {
+	public void setFacing(CbTileEntity cbTileEntity, EnumFacing facing)
+	{
 		CollapsibleUtil util = new CollapsibleUtil(cbTileEntity);
 		util.setFacing(cbTileEntity, facing);
 	}
 
 	@Override
-	public EnumFacing getFacing(CbTileEntity cbTileEntity) {
+	public EnumFacing getFacing(CbTileEntity cbTileEntity)
+	{
 		return new CollapsibleUtil(cbTileEntity).getFacing();
 	}
 	
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getBlockLayer() 
+    {
         return BlockRenderLayer.SOLID;
     }
 

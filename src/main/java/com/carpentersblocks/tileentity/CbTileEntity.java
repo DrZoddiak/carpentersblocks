@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
-import com.carpentersblocks.block.BlockCoverable;
+import com.carpentersblocks.block.types.BlockCoverable;
 import com.carpentersblocks.util.attribute.AbstractAttribute;
 import com.carpentersblocks.util.attribute.AbstractAttribute.Key;
 import com.carpentersblocks.util.attribute.AttributeHelper;
@@ -33,7 +33,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
-	public class CbTileEntity extends TileEntity implements IProtected {
+	public class CbTileEntity extends TileEntity implements IProtected
+	{
 
 		public static final String TAG_ATTR_LIST = "cbAttrList";
 	    public static final String TAG_METADATA  = "cbMetadata";

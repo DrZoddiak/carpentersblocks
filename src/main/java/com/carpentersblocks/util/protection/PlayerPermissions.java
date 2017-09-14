@@ -8,17 +8,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-public class PlayerPermissions {
-
+public class PlayerPermissions 
+{
     /**
      * Returns true if player is operator.
      * Can only return true if called server-side.
      */
     public static boolean isOp(EntityPlayer entityPlayer)
     {
-        if (!entityPlayer.worldObj.isRemote) {
+        if (!entityPlayer.worldObj.isRemote)
+        {
             return ((EntityPlayerMP)entityPlayer).mcServer.getPlayerList().getOppedPlayers().getEntry(entityPlayer.getGameProfile()) != null;
-        } else {
+        } 
+        else
+        {
             return false;
         }
     }
@@ -33,15 +36,24 @@ public class PlayerPermissions {
      */
     public static boolean hasElevatedPermission(IProtected object, EntityPlayer entityPlayer, boolean enforceOwnership)
     {
-        if (entityPlayer.worldObj.isRemote && Minecraft.getMinecraft().isSingleplayer()) { // Check if client is playing singleplayer
+        if (entityPlayer.worldObj.isRemote && Minecraft.getMinecraft().isSingleplayer())
+        { // Check if client is playing singleplayer
             return true;
-        } else if (!entityPlayer.worldObj.isRemote && entityPlayer.worldObj.getMinecraftServer().isSinglePlayer()) { // Check if server is integrated (singleplayer)
+        } 
+        else if (!entityPlayer.worldObj.isRemote && entityPlayer.worldObj.getMinecraftServer().isSinglePlayer()) 
+        { // Check if server is integrated (singleplayer)
             return true;
-        } else if (isOp(entityPlayer)) {
+        } 
+        else if (isOp(entityPlayer)) 
+        {
             return true;
-        } else if (!enforceOwnership && !FeatureRegistry.enableOwnership) {
+        }
+        else if (!enforceOwnership && !FeatureRegistry.enableOwnership)
+        {
             return true;
-        } else {
+        } 
+        else 
+        {
             return isOwner(object, entityPlayer);
         }
     }
@@ -55,12 +67,14 @@ public class PlayerPermissions {
      */
     private static boolean isOwner(IProtected object, EntityPlayer entityPlayer)
     {
-        try {
+        try 
+        {
             UUID.fromString(object.getOwner());
             return object.getOwner().equals(entityPlayer.getUniqueID().toString());
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e) 
+        {
             return object.getOwner().equals(entityPlayer.getDisplayName());
         }
     }
-
 }

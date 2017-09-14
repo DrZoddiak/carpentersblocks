@@ -13,14 +13,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class BakedCollapsibleBlock extends AbstractBakedModel {
+public class BakedCollapsibleBlock extends AbstractBakedModel 
+{
 
-    public BakedCollapsibleBlock(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    public BakedCollapsibleBlock(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
+    {
 		super(state, format, bakedTextureGetter);
 	}
 	
 	@Override
-	protected void fillQuads(QuadContainer quadContainer) {
+	protected void fillQuads(QuadContainer quadContainer) 
+	{
 		RenderHelperCollapsible _renderHelper = new RenderHelperCollapsible(this);
 		CollapsibleUtil util = _renderHelper.getUtil();
     	if (!util.isFullCube()) {
@@ -28,9 +31,12 @@ public class BakedCollapsibleBlock extends AbstractBakedModel {
     		quadContainer.add(_renderHelper.getQuadYPosZPos());
     		quadContainer.add(_renderHelper.getQuadXNegYPos());
     		quadContainer.add(_renderHelper.getQuadXPosYPos());
-		} else {
+		}
+    	else
+    	{
 			quadContainer.add(_renderHelper.getQuadYPos());
 		}
+    	
     	quadContainer.add(_renderHelper.getQuadYNeg());
         quadContainer.add(_renderHelper.getQuadZNeg());
         quadContainer.add(_renderHelper.getQuadZPos());
@@ -39,7 +45,8 @@ public class BakedCollapsibleBlock extends AbstractBakedModel {
 	}
 
 	@Override
-	protected TextureAtlasSprite getUncoveredSprite() {
+	protected TextureAtlasSprite getUncoveredSprite() 
+	{
 		return SpriteRegistry.sprite_uncovered_solid;
 	}
 	

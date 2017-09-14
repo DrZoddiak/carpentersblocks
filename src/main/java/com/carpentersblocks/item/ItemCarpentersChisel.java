@@ -1,7 +1,7 @@
 package com.carpentersblocks.item;
 
 import com.carpentersblocks.api.ICarpentersChisel;
-import com.carpentersblocks.block.BlockCoverable;
+import com.carpentersblocks.block.types.BlockCoverable;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

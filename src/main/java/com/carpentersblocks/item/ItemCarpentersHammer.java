@@ -2,7 +2,7 @@ package com.carpentersblocks.item;
 
 import com.carpentersblocks.CarpentersBlocks;
 import com.carpentersblocks.api.ICarpentersHammer;
-import com.carpentersblocks.block.BlockCoverable;
+import com.carpentersblocks.block.types.BlockCoverable;
 import com.carpentersblocks.util.registry.ItemRegistry;
 
 import net.minecraft.block.state.IBlockState;

@@ -30,13 +30,13 @@ import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+import static com.carpentersblocks.Reference.*;
 @SideOnly(Side.CLIENT)
 public class CarpentersBlocksCachedResources extends DummyModContainer {
 
     public final static CarpentersBlocksCachedResources INSTANCE = new CarpentersBlocksCachedResources();
     private String MODID = "CarpentersBlocksCachedResources";
-    private String resourceDir = FilenameUtils.normalizeNoEndSeparator(Minecraft.getMinecraft().mcDataDir.getAbsolutePath()) + File.separator + "mods" + File.separator + CarpentersBlocks.MOD_ID.toLowerCase();
+    private String resourceDir = FilenameUtils.normalizeNoEndSeparator(Minecraft.getMinecraft().mcDataDir.getAbsolutePath()) + File.separator + "mods" + File.separator + MOD_ID.toLowerCase();
     private static ZipFile resourcePackZipFile;
     private static ArrayList<Object[]> resources = new ArrayList<Object[]>();
     private final int RESOURCE_PATH  = 0;

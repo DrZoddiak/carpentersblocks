@@ -16,7 +16,7 @@ public class FeatureRegistry {
     public static boolean enableTorchWeatherEffects = true;
     public static boolean enableOwnership           = true;
     public static boolean enableIllumination        = true;
-    public static boolean enableRoutableFluids      = false;
+    public static boolean enableRoutableFluids      = true;
     public static boolean enableAlphaPanes          = true;
     public static boolean enableRailSlopes          = true;
     public static boolean enableGarageDoorVoidFill  = true;

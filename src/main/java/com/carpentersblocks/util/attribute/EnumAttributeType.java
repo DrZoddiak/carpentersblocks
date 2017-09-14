@@ -3,8 +3,8 @@ package com.carpentersblocks.util.attribute;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum EnumAttributeType {
-	
+public enum EnumAttributeType
+{ 
 	COVER(0),
 	DYE(1),
 	OVERLAY(2),
@@ -20,17 +20,21 @@ public enum EnumAttributeType {
 	private int _value;
     private static Map<Integer, EnumAttributeType> map = new HashMap<Integer, EnumAttributeType>();
 
-    static {
-        for (EnumAttributeType enumValue : EnumAttributeType.values()) {
+    static 
+    {
+        for (EnumAttributeType enumValue : EnumAttributeType.values())
+        {
             map.put(enumValue._value, enumValue);
         }
     }
 
-    private EnumAttributeType(final int value) {
+    private EnumAttributeType(final int value)
+    {
     	_value = value;
     }
 
-    public static EnumAttributeType valueOf(int value) {
+    public static EnumAttributeType valueOf(int value)
+    {
         return map.get(value);
     }
 	

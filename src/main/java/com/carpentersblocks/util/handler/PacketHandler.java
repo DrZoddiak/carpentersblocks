@@ -22,7 +22,7 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ServerCustomPacketEvent;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-
+import static com.carpentersblocks.Reference.*;
 public class PacketHandler {
 
     private final static List<Class> packetCarrier;
@@ -57,7 +57,7 @@ public class PacketHandler {
         try {
             packet.appendData(buffer);
         } catch (IOException e) { }
-        CarpentersBlocks.channel.sendToServer(new FMLProxyPacket(new CPacketCustomPayload(CarpentersBlocks.MOD_ID, buffer)));
+        CarpentersBlocks.channel.sendToServer(new FMLProxyPacket(new CPacketCustomPayload( MOD_ID, buffer)));
     }
 
 }
