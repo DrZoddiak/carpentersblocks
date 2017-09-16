@@ -1,5 +1,6 @@
 package com.carpentersblocks.proxy;
 
+import com.carpentersblocks.CBConfig;
 import com.carpentersblocks.CarpentersBlocks;
 import com.carpentersblocks.Reference;
 import com.carpentersblocks.tileentity.CbTileEntity;
@@ -8,7 +9,6 @@ import com.carpentersblocks.util.handler.EventHandler;
 import com.carpentersblocks.util.handler.OverlayHandler;
 import com.carpentersblocks.util.handler.PacketHandler;
 import com.carpentersblocks.util.registry.BlockRegistry;
-import com.carpentersblocks.util.registry.FeatureRegistry;
 import com.carpentersblocks.util.registry.ItemRegistry;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -21,9 +21,9 @@ public class CommonProxy
 { 
     public void preInit(FMLPreInitializationEvent event, Configuration config) 
     {
-        FeatureRegistry.preInit(event, config); // Do before block and item registration
-        BlockRegistry.preInit(event, config); // Do before item registration
-        ItemRegistry.preInit(event, config);
+    	CBConfig.config(config); 
+        BlockRegistry.preInit(event); // Do before item registration
+        ItemRegistry.preInit(event);
         DesignHandler.preInit(event);        
     }
     
@@ -50,7 +50,7 @@ public class CommonProxy
         //GameRegistry.registerTileEntity(CbDaylightSensorTileEntity.class,              "TileEntityCarpentersExt"); // Compatibility mapping
         //GameRegistry.registerTileEntity(CbDaylightSensorTileEntity.class,   "TileEntityCarpentersDaylightSensor");
         //GameRegistry.registerTileEntity(     CbFlowerPotTileEntity.class,        "TileEntityCarpentersFlowerPot");
-        //GameRegistry.registerTileEntity(          CbSafeTileEntity.class,             "TileEntityCarpentersSafe");
+        GameRegistry.registerTileEntity(          CbTileEntity.class,             "TileEntityCarpentersSafe");
         //GameRegistry.registerTileEntity(         CbTorchTileEntity.class,            "TileEntityCarpentersTorch");
         //GameRegistry.registerTileEntity(    CbGarageDoorTileEntity.class,       "TileEntityCarpentersGarageDoor");
 

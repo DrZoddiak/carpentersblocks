@@ -66,45 +66,8 @@ public class BlockRegistry
     /**
      * Block preinitialization.
      */
-    public static void preInit(FMLPreInitializationEvent event, Configuration config)
-    {
-        enableBarrier          = config.get("blocks",           "Enable Barrier",          enableBarrier).getBoolean(enableBarrier);
-        enableBed              = config.get("blocks",               "Enable Bed",              enableBed).getBoolean(enableBed);
-        enableButton           = config.get("blocks",            "Enable Button",           enableButton).getBoolean(enableButton);
-        enableCollapsibleBlock = config.get("blocks", "Enable Collapsible Block", enableCollapsibleBlock).getBoolean(enableCollapsibleBlock);
-        enableDaylightSensor   = config.get("blocks",   "Enable Daylight Sensor",   enableDaylightSensor).getBoolean(enableDaylightSensor);
-        enableDoor             = config.get("blocks",              "Enable Door",             enableDoor).getBoolean(enableDoor);
-        enableFlowerPot        = config.get("blocks",        "Enable Flower Pot",        enableFlowerPot).getBoolean(enableFlowerPot);
-        enableGarageDoor       = config.get("blocks",       "Enable Garage Door",       enableGarageDoor).getBoolean(enableGarageDoor);
-        enableGate             = config.get("blocks",              "Enable Gate",             enableGate).getBoolean(enableGate);
-        enableHatch            = config.get("blocks",             "Enable Hatch",            enableHatch).getBoolean(enableHatch);
-        enableLadder           = config.get("blocks",            "Enable Ladder",           enableLadder).getBoolean(enableLadder);
-        enableLever            = config.get("blocks",             "Enable Lever",            enableLever).getBoolean(enableLever);
-        enablePressurePlate    = config.get("blocks",    "Enable Pressure Plate",    enablePressurePlate).getBoolean(enablePressurePlate);
-        enableSafe             = config.get("blocks",              "Enable Safe",             enableSafe).getBoolean(enableSafe);
-        enableSlope            = config.get("blocks",             "Enable Slope",            enableSlope).getBoolean(enableSlope);
-        enableStairs           = config.get("blocks",            "Enable Stairs",           enableStairs).getBoolean(enableStairs);
-        enableTorch            = config.get("blocks",             "Enable Torch",            enableTorch).getBoolean(enableTorch);
-
-        recipeQuantityBarrier          = config.get("recipe quantities",           "Barrier",          recipeQuantityBarrier).getInt(recipeQuantityBarrier);
-        recipeQuantityBed              = config.get("recipe quantities",               "Bed",              recipeQuantityBed).getInt(recipeQuantityBed);
-        recipeQuantityBlock            = config.get("recipe quantities",             "Block",            recipeQuantityBlock).getInt(recipeQuantityBlock);
-        recipeQuantityButton           = config.get("recipe quantities",            "Button",           recipeQuantityButton).getInt(recipeQuantityButton);
-        recipeQuantityCollapsibleBlock = config.get("recipe quantities", "Collapsible Block", recipeQuantityCollapsibleBlock).getInt(recipeQuantityCollapsibleBlock);
-        recipeQuantityDaylightSensor   = config.get("recipe quantities",   "Daylight Sensor",   recipeQuantityDaylightSensor).getInt(recipeQuantityDaylightSensor);
-        recipeQuantityDoor             = config.get("recipe quantities",              "Door",             recipeQuantityDoor).getInt(recipeQuantityDoor);
-        recipeQuantityFlowerPot        = config.get("recipe quantities",        "Flower Pot",        recipeQuantityFlowerPot).getInt(recipeQuantityFlowerPot);
-        recipeQuantityGarageDoor       = config.get("recipe quantities",       "Garage Door",       recipeQuantityGarageDoor).getInt(recipeQuantityGarageDoor);
-        recipeQuantityGate             = config.get("recipe quantities",              "Gate",             recipeQuantityGate).getInt(recipeQuantityGate);
-        recipeQuantityHatch            = config.get("recipe quantities",             "Hatch",            recipeQuantityHatch).getInt(recipeQuantityHatch);
-        recipeQuantityLadder           = config.get("recipe quantities",            "Ladder",           recipeQuantityLadder).getInt(recipeQuantityLadder);
-        recipeQuantityLever            = config.get("recipe quantities",             "Lever",            recipeQuantityLever).getInt(recipeQuantityLever);
-        recipeQuantityPressurePlate    = config.get("recipe quantities",    "Pressure Plate",    recipeQuantityPressurePlate).getInt(recipeQuantityPressurePlate);
-        recipeQuantitySafe             = config.get("recipe quantities",              "Safe",             recipeQuantitySafe).getInt(recipeQuantitySafe);
-        recipeQuantitySlope            = config.get("recipe quantities",             "Slope",            recipeQuantitySlope).getInt(recipeQuantitySlope);
-        recipeQuantityStairs           = config.get("recipe quantities",            "Stairs",           recipeQuantityStairs).getInt(recipeQuantityStairs);
-        recipeQuantityTorch            = config.get("recipe quantities",             "Torch",            recipeQuantityTorch).getInt(recipeQuantityTorch);
-
+    public static void preInit(FMLPreInitializationEvent event)
+    { 
         // Register blocks
         
     	blockCarpentersBlock = new BlockCarpentersBlock(material)
@@ -287,12 +250,11 @@ public class BlockRegistry
         if (enableSlope) 
         {
         		blockCarpentersSlope = new BlockCarpentersSlope(material)
-                        .setRegistryName(REGISTRY_NAME_SLOPE)
-                        .setUnlocalizedName("blockCarpentersSlope")
+                        .setRegistryName(REGISTRY_NAME_SLOPE) 
                         .setHardness(0.2F)
                         .setCreativeTab(CarpentersBlocks.CREATIVE_TAB);
-                    GameRegistry.register(blockCarpentersSlope);
-                    GameRegistry.register(new ItemBlock(blockCarpentersSlope), blockCarpentersSlope.getRegistryName());
+                   GameRegistry.register(blockCarpentersSlope);
+                   GameRegistry.register(new ItemBlock(blockCarpentersSlope), blockCarpentersSlope.getRegistryName()); 
         	
         }
 
@@ -332,7 +294,7 @@ public class BlockRegistry
     private static void registerItemBlockRender(Block block) 
     {
 		ModelResourceLocation modelResourceLocation = new ModelResourceLocation(block.getRegistryName(), "inventory");
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, modelResourceLocation);
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, modelResourceLocation); 
     }
 
     @SideOnly(Side.CLIENT)

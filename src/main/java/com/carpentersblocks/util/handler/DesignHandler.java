@@ -19,7 +19,6 @@ import com.carpentersblocks.CarpentersBlocksCachedResources;
 import com.carpentersblocks.Reference;
 import com.carpentersblocks.util.ModLogger;
 import com.carpentersblocks.util.registry.BlockRegistry;
-import com.carpentersblocks.util.registry.FeatureRegistry;
 import com.carpentersblocks.util.registry.ItemRegistry;
 import com.carpentersblocks.util.registry.SpriteRegistry;
 

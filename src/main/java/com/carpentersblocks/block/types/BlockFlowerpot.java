@@ -11,18 +11,21 @@ import com.carpentersblocks.Reference;
 import com.carpentersblocks.api.ICarpentersChisel;
 import com.carpentersblocks.api.ICarpentersHammer;
 import com.carpentersblocks.block.state.Property;
+import com.carpentersblocks.block.types.BlockCoverable.ActionResult;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.EntityLivingUtil;
-import com.carpentersblocks.util.attribute.AbstractAttribute.Key;
 import com.carpentersblocks.util.attribute.EnumAttributeLocation;
 import com.carpentersblocks.util.attribute.EnumAttributeType;
+import com.carpentersblocks.util.attribute.AbstractAttribute.Key;
 import com.carpentersblocks.util.block.BlockUtil;
 import com.carpentersblocks.util.handler.DesignHandler;
 import com.carpentersblocks.util.handler.EventHandler;
 import com.carpentersblocks.util.handler.OverlayHandler;
 import com.carpentersblocks.util.protection.PlayerPermissions;
 import com.carpentersblocks.util.protection.ProtectedObject;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -47,7 +50,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockCoverable extends Block 
+public abstract class BlockFlowerpot extends BlockFlowerPot
 { 
     /** Block drop event for dropping attribute. */
     public static int EVENT_ID_DROP_ATTR = 0x40000000;
@@ -97,9 +100,9 @@ public abstract class BlockCoverable extends Block
      *
      * @param material the block material
      */
-    public BlockCoverable(Material material)
+    public BlockFlowerpot(Material material)
     {
-        super(material);
+        super();
     }
 
     /**
@@ -1396,7 +1399,7 @@ public abstract class BlockCoverable extends Block
     {
         return cbTileEntity;
     }
-    
+    /*
     @Override
     protected BlockStateContainer createBlockState() 
     {
@@ -1423,7 +1426,7 @@ public abstract class BlockCoverable extends Block
         }
         return blockState;
     }
-    
+    */
     /**
      * The type of render function called. 3 for standard block models, 2 for TESR's, 1 for liquids, -1 is no render
      */
@@ -1444,3 +1447,4 @@ public abstract class BlockCoverable extends Block
     	return 0;
     } 
 }
+

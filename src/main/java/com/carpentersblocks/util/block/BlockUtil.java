@@ -1,5 +1,6 @@
 package com.carpentersblocks.util.block;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.api.IWrappableBlock;
 import com.carpentersblocks.block.state.Property;
 import com.carpentersblocks.block.types.BlockCoverable;
@@ -13,8 +14,6 @@ import com.carpentersblocks.util.handler.ChatHandler;
 import com.carpentersblocks.util.handler.DyeHandler;
 import com.carpentersblocks.util.handler.OverlayHandler;
 import com.carpentersblocks.util.handler.OverlayHandler.Overlay;
-import com.carpentersblocks.util.registry.FeatureRegistry;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.BlockPane;
@@ -188,8 +187,8 @@ public class BlockUtil
                    block instanceof BlockSlab ||
                    block instanceof BlockPane ||
                    block instanceof BlockBreakable ||
-                   FeatureRegistry.coverExceptions.contains(itemStack.getDisplayName()) ||
-                   FeatureRegistry.coverExceptions.contains(ChatHandler.getDefaultTranslation(itemStack));
+                   Reference.coverExceptions.contains(itemStack.getDisplayName()) ||
+                   Reference.coverExceptions.contains(ChatHandler.getDefaultTranslation(itemStack));
         }
         return false;
     }

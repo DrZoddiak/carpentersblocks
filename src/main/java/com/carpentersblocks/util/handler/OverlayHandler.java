@@ -3,8 +3,8 @@ package com.carpentersblocks.util.handler;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.util.block.BlockUtil;
-import com.carpentersblocks.util.registry.FeatureRegistry;
 import com.carpentersblocks.util.registry.SpriteRegistry;
 
 import net.minecraft.client.Minecraft;
@@ -47,7 +47,7 @@ public class OverlayHandler
      */
     public static void init() 
     {
-        for (String name : FeatureRegistry.overlayItems) 
+        for (String name : Reference.overlayItems) 
         {
             String itemName = name.substring(0, name.indexOf(":"));
             if (!overlayMap.containsKey(itemName))

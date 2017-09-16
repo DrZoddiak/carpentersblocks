@@ -33,7 +33,7 @@ public class RenderHelperCollapsible extends RenderHelper
         return Quad.getQuad(
         	EnumFacing.UP,
         	new Vec3d(0.0D, _util.offset_XZNN, 0.0D),
-	        new Vec3d(0.5D, _util.CENTER_YMAX, 0.5D),
+	        new Vec3d(0.5D, _util.CENTER_YMAX, 0.5D), 
 	        new Vec3d(1.0D, _util.offset_XZPN, 0.0D)
         );
     }

@@ -267,8 +267,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing
             return 0;
         }
         return (int) (blockState.getBoundingBox(blockAccess, blockPos).maxY * 16.0);
-    }
-
+    } 
+    
     @Override
     /**
      * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
@@ -412,7 +412,8 @@ public class BlockCarpentersCollapsibleBlock extends BlockFacing
                 util.setQuadDepth(cbTileEntity, QUAD_XZPP, height_XZPP);
                 util.setQuadDepth(cbTileEntity, QUAD_XZPN, height_XZPN);
 
-                for (int quad = 0; quad < 4; ++quad) {
+                for (int quad = 0; quad < 4; ++quad) 
+                {
                     smoothAdjacentCollapsibles(cbTileEntity, quad);
                 }
             }

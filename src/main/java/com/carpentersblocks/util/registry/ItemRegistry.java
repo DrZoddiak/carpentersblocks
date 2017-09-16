@@ -26,20 +26,8 @@ public class ItemRegistry
     /**
      * Registers item IDs.
      */
-    public static void preInit(FMLPreInitializationEvent event, Configuration config)
-    {
-        enableHammer                  = config.get("items",            "Enable Hammer",                  enableHammer).getBoolean(enableHammer);
-        enableChisel                  = config.get("items",            "Enable Chisel",                  enableChisel).getBoolean(enableChisel);
-        enableTile                    = config.get("items",              "Enable Tile",                    enableTile).getBoolean(enableTile);
-        itemCarpentersToolsUses       = config.get("items",        "Vanilla Tool Uses",       itemCarpentersToolsUses).getInt(itemCarpentersToolsUses);
-        itemCarpentersToolsDamageable = config.get("items", "Vanilla Tools Damageable", itemCarpentersToolsDamageable).getBoolean(itemCarpentersToolsDamageable);
-
-        recipeQuantityTile = config.get("recipe quantities", "Tile", recipeQuantityTile).getInt(recipeQuantityTile);
-
-        itemHammerDamageChanceFromSlopes      = config.get("items",      "itemHammerDamageChanceFromSlopes",      itemHammerDamageChanceFromSlopes).getDouble(     itemHammerDamageChanceFromSlopes);
-        itemHammerDamageChanceFromStairs      = config.get("items",      "itemHammerDamageChanceFromStairs",      itemHammerDamageChanceFromStairs).getDouble(     itemHammerDamageChanceFromStairs);
-        itemHammerDamageChanceFromCollapsible = config.get("items", "itemHammerDamageChanceFromCollapsible", itemHammerDamageChanceFromCollapsible).getDouble(itemHammerDamageChanceFromCollapsible);
-
+    public static void preInit(FMLPreInitializationEvent event)
+    {  
         // Register items
         
         if (enableHammer)

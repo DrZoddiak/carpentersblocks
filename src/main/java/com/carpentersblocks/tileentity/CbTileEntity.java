@@ -1,4 +1,4 @@
-package com.carpentersblocks.tileentity;
+	package com.carpentersblocks.tileentity;
 
 	import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,10 +21,7 @@ import com.carpentersblocks.util.attribute.EnumAttributeType;
 import com.carpentersblocks.util.block.BlockUtil;
 import com.carpentersblocks.util.protection.IProtected;
 import com.carpentersblocks.util.protection.ProtectedObject;
-import com.carpentersblocks.util.registry.FeatureRegistry;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

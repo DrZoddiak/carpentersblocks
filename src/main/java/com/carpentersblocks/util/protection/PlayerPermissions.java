@@ -3,8 +3,6 @@ package com.carpentersblocks.util.protection;
 import java.util.UUID;
 
 import com.carpentersblocks.Reference;
-import com.carpentersblocks.util.registry.FeatureRegistry;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

@@ -1,5 +1,7 @@
 package com.carpentersblocks;
 
+import java.util.ArrayList;
+
 public class Reference 
 {
 	//Mod Info
@@ -115,4 +117,10 @@ public class Reference
     public static int carpentersSlopeRenderID;
     public static int carpentersStairsRenderID;
     public static int carpentersTorchRenderID; 
+    
+    public static ArrayList<String> overlayItems    = new ArrayList<String>();
+    public static ArrayList<String> coverExceptions = new ArrayList<String>();
+
+    public static int     slopeSmoothness           = 2;
+    public static int     multiBlockSizeLimit       = 500;
 } 
