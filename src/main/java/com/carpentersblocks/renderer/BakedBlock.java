@@ -31,6 +31,6 @@ public class BakedBlock extends AbstractBakedModel
 	@Override
 	protected TextureAtlasSprite getUncoveredSprite() 
 	{
-		return SpriteRegistry.sprite_uncovered_full;
+		return SpriteRegistry.sprite_uncovered_quartered;
 	} 
 }
