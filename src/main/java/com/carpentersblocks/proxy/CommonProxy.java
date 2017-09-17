@@ -50,7 +50,7 @@ public class CommonProxy
         //GameRegistry.registerTileEntity(CbDaylightSensorTileEntity.class,              "TileEntityCarpentersExt"); // Compatibility mapping
         //GameRegistry.registerTileEntity(CbDaylightSensorTileEntity.class,   "TileEntityCarpentersDaylightSensor");
         //GameRegistry.registerTileEntity(     CbFlowerPotTileEntity.class,        "TileEntityCarpentersFlowerPot");
-        GameRegistry.registerTileEntity(          CbTileEntity.class,             "TileEntityCarpentersSafe");
+        //GameRegistry.registerTileEntity(          CbTileEntity.class,             "TileEntityCarpentersSafe");
         //GameRegistry.registerTileEntity(         CbTorchTileEntity.class,            "TileEntityCarpentersTorch");
         //GameRegistry.registerTileEntity(    CbGarageDoorTileEntity.class,       "TileEntityCarpentersGarageDoor");
 

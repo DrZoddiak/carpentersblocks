@@ -20,13 +20,14 @@ import net.minecraft.world.World;
 public class BlockCarpentersSafe extends Block
 {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	public static final PropertyBool LOCKED = PropertyBool.create("locked"); 
-	
+	public static final PropertyBool LOCKED = PropertyBool.create("locked");  
 	
 	public BlockCarpentersSafe(Material material) 
 	{
+		//@TODO rotation 
 		super(material); 
-		this.setDefaultState(this.blockState.getBaseState().withProperty(LOCKED, Boolean.valueOf(false)));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(LOCKED, Boolean.valueOf(true)));
+				//.withProperty(FACING, EnumFacing.NORTH) 
 	} 
 	
 	@Override
@@ -44,7 +45,7 @@ public class BlockCarpentersSafe extends Block
 	@Override
 	public IBlockState getStateFromMeta(int meta) 
 	{
-		return meta == 0 ? this.getDefaultState().withProperty(LOCKED, false) : this.getDefaultState().withProperty(LOCKED, true);
+		return this.getDefaultState().withProperty(LOCKED, meta == 0); 
 	}
 	
 	@Override
@@ -52,11 +53,18 @@ public class BlockCarpentersSafe extends Block
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(playerIn.isSneaking())
 		{
-			worldIn.setBlockState(pos, state.withProperty(LOCKED, !state.getValue(LOCKED).booleanValue() ));
+			worldIn.setBlockState(pos, state.withProperty(LOCKED, state.getValue(LOCKED).booleanValue() == false ? true:false));
 			if(worldIn.isRemote)
-				ChatHandler.sendMessageToPlayer("You have "+(state.getValue(LOCKED).booleanValue() == true ? "LOCKED ":"UNLOCKED ")+"the safe!", playerIn);
+				ChatHandler.sendMessageToPlayer("You have "+(state.getValue(LOCKED).booleanValue() == true ? "UNLOCKED ":"LOCKED ")+"the safe!", playerIn);
 			return true;
 		}
+		else
+		{
+			
+			if(state.getValue(LOCKED).booleanValue())
+				if(worldIn.isRemote)
+					ChatHandler.sendMessageToPlayer("I am LOCKED, you cannot view my contents!", playerIn);
+		}
 		return true;
-	}  
+	}   
 } 

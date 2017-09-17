@@ -12,6 +12,7 @@ public class BlockCarpentersFlowerPot extends BlockFlowerPot
 	public BlockCarpentersFlowerPot(Material material)
 	{
 		super(); 
+		this.setDefaultState(this.blockState.getBaseState().withProperty(CONTENTS, BlockFlowerPot.EnumFlowerType.EMPTY) );
 	} 
 	
 	@Override

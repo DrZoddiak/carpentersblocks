@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"locked=true":	{"model": "carpentersblocks:carpenters_safe_locked"},
+		"locked=false":	{"model": "carpentersblocks:carpenters_safe_unlocked"}
+	}
+}

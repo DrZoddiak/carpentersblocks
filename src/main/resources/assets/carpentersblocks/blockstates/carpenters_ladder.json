@@ -1,0 +1,8 @@
+ {
+    "variants": {
+        "facing=north": { "model": "carpentersblocks:carpenters_ladder", "y": 180 },
+        "facing=east":  { "model": "carpentersblocks:carpenters_ladder", "y": 270 },
+        "facing=south": { "model": "carpentersblocks:carpenters_ladder" },
+        "facing=west":  { "model": "carpentersblocks:carpenters_ladder", "y": 90 }
+    }
+}
