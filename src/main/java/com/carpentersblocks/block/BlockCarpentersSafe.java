@@ -1,70 +1,92 @@
 package com.carpentersblocks.block;
 
-import com.carpentersblocks.util.handler.ChatHandler;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockHorizontal;
+import com.carpentersblocks.block.types.BlockCoverable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCarpentersSafe extends Block
-{
-	public static final PropertyDirection FACING = BlockHorizontal.FACING;
+public class BlockCarpentersSafe extends BlockCoverable
+{ 
+	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyBool LOCKED = PropertyBool.create("locked");  
 	
 	public BlockCarpentersSafe(Material material) 
-	{
-		//@TODO rotation 
-		super(material); 
-		this.setDefaultState(this.blockState.getBaseState().withProperty(LOCKED, Boolean.valueOf(true)));
-				//.withProperty(FACING, EnumFacing.NORTH) 
+	{ 
+		super(material);  
 	} 
 	
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] {LOCKED});
+		return new BlockStateContainer(this, new IProperty[] {LOCKED, FACING});
 	}
 	
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{ 
-		return state.getValue(LOCKED).booleanValue() == true ?  0:1;
+		 int i;
+
+	        switch ((EnumFacing)state.getValue(FACING))
+	        {
+	            case NORTH:
+	                i = 0;
+	                break;
+	            case EAST:
+	                i = 1;
+	                break;
+	            case SOUTH:
+	                i = 2;
+	                break;
+	            case WEST:
+	            	default:
+	                i = 3;
+	                break;
+	        }
+
+	        if ((state.getValue(LOCKED)).booleanValue())
+	        {
+	            i |= 8;
+	        }
+	        return i;
 	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) 
 	{
-		return this.getDefaultState().withProperty(LOCKED, meta == 0); 
+		EnumFacing enumfacing;
+
+        switch (meta & 7)
+        {
+            case 0:
+                enumfacing = EnumFacing.NORTH;
+                break;
+            case 1:
+                enumfacing = EnumFacing.EAST;
+                break;
+            case 2:
+                enumfacing = EnumFacing.SOUTH;
+                break;
+            case 3:
+            	default:
+                enumfacing = EnumFacing.WEST;
+                break;
+        }
+
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(LOCKED, Boolean.valueOf((meta & 8) > 0));
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(playerIn.isSneaking())
-		{
-			worldIn.setBlockState(pos, state.withProperty(LOCKED, state.getValue(LOCKED).booleanValue() == false ? true:false));
-			if(worldIn.isRemote)
-				ChatHandler.sendMessageToPlayer("You have "+(state.getValue(LOCKED).booleanValue() == true ? "UNLOCKED ":"LOCKED ")+"the safe!", playerIn);
-			return true;
-		}
-		else
-		{
-			
-			if(state.getValue(LOCKED).booleanValue())
-				if(worldIn.isRemote)
-					ChatHandler.sendMessageToPlayer("I am LOCKED, you cannot view my contents!", playerIn);
-		}
-		return true;
-	}   
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
+			int meta, EntityLivingBase placer) 
+	{ 
+		facing = placer.getHorizontalFacing();
+		return this.getDefaultState().withProperty(LOCKED, true).withProperty(FACING, facing);
+	} 
 } 

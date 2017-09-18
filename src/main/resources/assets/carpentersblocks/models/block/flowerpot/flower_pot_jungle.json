@@ -1,0 +1,6 @@
+{
+    "parent": "carpentersblocks:block/flowerpot/flower_pot_cross",
+    "textures": {
+        "plant": "blocks/sapling_jungle"
+    }
+}

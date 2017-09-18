@@ -1,6 +1,12 @@
 {
 	"variants": {
-		"locked=true":	{"model": "carpentersblocks:carpenters_safe_locked"},
-		"locked=false":	{"model": "carpentersblocks:carpenters_safe_unlocked"}
+		"facing=north,locked=true":	{"model": "carpentersblocks:safe/carpenters_safe_locked"},
+		"facing=north,locked=false":	{"model": "carpentersblocks:safe/carpenters_safe_unlocked"},
+		"facing=east,locked=true":	{"model": "carpentersblocks:safe/carpenters_safe_locked", "y": 90 },
+		"facing=east,locked=false":	{"model": "carpentersblocks:safe/carpenters_safe_unlocked", "y": 90 },
+		"facing=south,locked=true":	{"model": "carpentersblocks:safe/carpenters_safe_locked", "y": 180 },
+		"facing=south,locked=false":	{"model": "carpentersblocks:safe/carpenters_safe_unlocked", "y": 180 },
+		"facing=west,locked=true":	{"model": "carpentersblocks:safe/carpenters_safe_locked", "y": 270 },
+		"facing=west,locked=false":	{"model": "carpentersblocks:safe/carpenters_safe_unlocked", "y": 270 }
 	}
 }

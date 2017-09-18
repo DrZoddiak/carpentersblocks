@@ -1,9 +1,10 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "blocks/flower_pot",
-        "flowerpot": "blocks/flower_pot",
-        "dirt": "blocks/dirt"
+        "particle": "carpentersblocks:blocks/general/solid",
+        "flowerpot": "carpentersblocks:blocks/general/solid",
+        "dirt": "blocks/dirt",
+        "cactus": "blocks/cactus_side"
     },
     "elements": [
         {   "from": [ 5, 0, 5 ],
@@ -51,6 +52,34 @@
             "faces": {
                 "down": { "uv": [ 6, 6, 10, 10 ], "texture": "#flowerpot", "cullface": "down" },
                 "up":   { "uv": [ 6, 6, 10, 10 ], "texture": "#dirt" }
+            }
+        },
+        {   "from": [ 6, 4, 6 ],
+            "to": [ 10, 8, 10 ],
+            "faces": {
+                "north": { "uv": [ 6, 8, 10, 12 ], "texture": "#cactus" },
+                "south": { "uv": [ 6, 8, 10, 12 ], "texture": "#cactus" },
+                "west":  { "uv": [ 6, 8, 10, 12 ], "texture": "#cactus" },
+                "east":  { "uv": [ 6, 8, 10, 12 ], "texture": "#cactus" }
+            }
+        },
+        {   "from": [ 6, 8, 6 ],
+            "to": [ 10, 12, 10 ],
+            "faces": {
+                "north": { "uv": [ 6, 4, 10, 8 ], "texture": "#cactus" },
+                "south": { "uv": [ 6, 4, 10, 8 ], "texture": "#cactus" },
+                "west":  { "uv": [ 6, 4, 10, 8 ], "texture": "#cactus" },
+                "east":  { "uv": [ 6, 4, 10, 8 ], "texture": "#cactus" }
+            }
+        },
+        {   "from": [ 6, 12, 6 ],
+            "to": [ 10, 16, 10 ],
+            "faces": {
+                "up":    { "uv": [ 6, 6, 10, 10 ], "texture": "#cactus" },
+                "north": { "uv": [ 6, 0, 10, 4 ], "texture": "#cactus" },
+                "south": { "uv": [ 6, 0, 10, 4 ], "texture": "#cactus" },
+                "west":  { "uv": [ 6, 0, 10, 4 ], "texture": "#cactus" },
+                "east":  { "uv": [ 6, 0, 10, 4 ], "texture": "#cactus" }
             }
         }
     ]
