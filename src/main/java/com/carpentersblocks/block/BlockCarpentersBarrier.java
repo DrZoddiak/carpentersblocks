@@ -1,13 +1,13 @@
 package com.carpentersblocks.block;
 
-import com.carpentersblocks.block.types.BlockCoverable;
-
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 
-public class BlockCarpentersBarrier extends BlockCoverable
+public class BlockCarpentersBarrier extends BlockFence
 { 
-	public BlockCarpentersBarrier(Material material) 
+	public BlockCarpentersBarrier(Material material, MapColor blockMapColor) 
 	{
-		super(material); 
+		super(material, blockMapColor); 
 	} 
 }

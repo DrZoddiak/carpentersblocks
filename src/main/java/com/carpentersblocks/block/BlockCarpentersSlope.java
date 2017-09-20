@@ -5,50 +5,124 @@ import java.util.List;
 
 import com.carpentersblocks.block.types.BlockCoverable;
 
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IStringSerializable;
 
 public class BlockCarpentersSlope extends BlockCoverable 
 { 
     public final static String slopeType[] = { "wedge", "obliqueInterior", "obliqueExterior", "prism", "prismWedge" };
     public final static String baseUnlocalName = "tile.blockCarpentersSlope.";
 
+    public static final PropertyEnum<BlockCarpentersSlope.EnumType> VARIANT = PropertyEnum.create("variant", BlockCarpentersSlope.EnumType.class);
+    
+    
     public BlockCarpentersSlope(Material material)
     {
-        super(material); 
+        super(material);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockCarpentersSlope.EnumType.WEDGE));
     }
     
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) 
     {
-    	for(int i = 0; i<slopeType.length; i++)
-    		list.add(new ItemStack(itemIn, 1, i));
-  //  	list.add( new ItemStack(new BlockCarpentersSlope(Material.WOOD).setUnlocalizedName(baseUnlocalName)+slopeType[i])))
-    }
+    	for(BlockCarpentersSlope.EnumType blockSlope : BlockCarpentersSlope.EnumType.values())
+    	{
+    		list.add(new ItemStack(itemIn, 1, blockSlope.getMeta()));
+    	}
+    } 
+    
     
     @Override
     public String getUnlocalizedName() 
     {
-    	return getUnlocalizedName(new ItemStack(this));
+    	return   baseUnlocalName+"wedge";
     }
     
-    public String getUnlocalizedName(ItemStack stack) 
+    @Override
+    public int getMetaFromState(IBlockState state) 
     {
-    	switch(stack.getItemDamage())
+    	return state.getValue(VARIANT).META;
+    }
+    
+    @Override
+    public IBlockState getStateFromMeta(int meta) 
+    {
+    	return this.getDefaultState().withProperty(VARIANT, BlockCarpentersSlope.EnumType.byMetadata(meta));
+    }
+    
+    @Override
+    protected BlockStateContainer createBlockState() 
+    {
+    	return new BlockStateContainer(this, new IProperty[] {VARIANT});
+    }
+    
+    public static enum EnumType implements IStringSerializable
+    {
+    	WEDGE(0, "wedge"),
+    	INTERIOR(1, "oblique_interior", "obliqueInterior"),
+    	EXTERIOR(2, "oblique_exterior", "obliqueExterior"),
+    	PRISM(3, "prism"),
+    	PRISM_WEDGE(4, "prism_wedge", "prismWedge");
+    	
+    	private static final BlockCarpentersSlope.EnumType[] META_LOOKUP = new BlockCarpentersSlope.EnumType[values().length];
+    	private final int META;
+    	private final String NAME, ID;
+    	
+    	private EnumType(int meta, String id)
     	{
-    		case 0:
-    			return baseUnlocalName+slopeType[0];
-    		case 1:
-    			return baseUnlocalName+slopeType[1];
-    		case 2:
-    			return baseUnlocalName+slopeType[2];
-    		case 3:
-    			return baseUnlocalName+slopeType[3];
-    		case 4:
-    			return baseUnlocalName+slopeType[4];
+    		META = meta;
+    		NAME = id;
+    		ID = id;
     	}
-    	return "test";
+    	
+    	private EnumType(int meta, String name, String id)
+    	{
+    		META = meta;
+    		NAME = name;
+    		ID = id;
+    	}
+ 
+		public String getName() 
+		{
+			return NAME;
+		}
+		
+		public String getUnlocalName()
+		{
+			return ID;
+		}
+		
+		public int getMeta()
+		{
+			return META;
+		}
+		
+		public static BlockCarpentersSlope.EnumType byMetadata(int meta)
+        {
+            if (meta < 0 || meta >= META_LOOKUP.length)
+            {
+                meta = 0;
+            }
+
+            return META_LOOKUP[meta];
+        }
+
+		 static
+	        {
+	            for (BlockCarpentersSlope.EnumType blockcarpentersslope$enumtype : values())
+	            {
+	                META_LOOKUP[blockcarpentersslope$enumtype.getMeta()] = blockcarpentersslope$enumtype;
+	            }
+	        }
+    	
     }
 }

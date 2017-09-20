@@ -1,6 +1,8 @@
 package com.carpentersblocks.block;
 
 import com.carpentersblocks.block.types.BlockCoverable;
+import com.carpentersblocks.util.registry.BlockRegistry;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -8,11 +10,17 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
-public class BlockCarpentersSafe extends BlockCoverable
+public class BlockCarpentersSafe extends BlockCoverable  
 { 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyBool LOCKED = PropertyBool.create("locked");  
@@ -20,8 +28,10 @@ public class BlockCarpentersSafe extends BlockCoverable
 	public BlockCarpentersSafe(Material material) 
 	{ 
 		super(material);  
-	} 
+	}  
 	
+	
+	//Block Meta/Rotation
 	@Override
 	protected BlockStateContainer createBlockState()
 	{

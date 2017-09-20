@@ -23,6 +23,7 @@ import com.carpentersblocks.block.BlockCarpentersTorch;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate.Sensitivity;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -81,13 +82,13 @@ public class BlockRegistry
 
          if(enableBarrier)
          {
-             blockCarpentersBarrier = new BlockCarpentersBarrier(material)
+             blockCarpentersBarrier = new BlockCarpentersBarrier(material, MapColor.WOOD)
                  .setUnlocalizedName("blockCarpentersBarrier")
                  .setRegistryName(REGISTRY_NAME_BARRIER)
                  .setHardness(0.2F)
                  .setCreativeTab(CarpentersBlocks.CREATIVE_TAB);
              GameRegistry.register(blockCarpentersBarrier);
-       //      GameRegistry.register(blockCarpentersBarrier, blockCarpentersBarrier.getRegistryName());
+             GameRegistry.register(new ItemBlock(blockCarpentersBarrier), blockCarpentersBarrier.getRegistryName());
              Blocks.FIRE.setFireInfo(blockCarpentersBarrier, 5, 20);
          }
         
@@ -260,7 +261,7 @@ public class BlockRegistry
 
         if(enableStairs) 
         {
-            blockCarpentersStairs = new BlockCarpentersStairs(material)
+            blockCarpentersStairs = new BlockCarpentersStairs(blockCarpentersBlock.getDefaultState())
                 .setUnlocalizedName("blockCarpentersStairs")
                 .setRegistryName(REGISTRY_NAME_STAIRS)
                 .setHardness(0.2F)
