@@ -70,7 +70,8 @@ public class ItemRegistry
         {
             itemCarpentersTile = new ItemCarpentersTile()
             		.setUnlocalizedName("itemCarpentersTile")
-            		.setRegistryName("carpenters_tile");
+            		.setRegistryName("carpenters_tile") 
+            		.setCreativeTab(CarpentersBlocks.CREATIVE_TAB);
             GameRegistry.register(itemCarpentersTile);
             
             if (Side.CLIENT.equals(event.getSide()))

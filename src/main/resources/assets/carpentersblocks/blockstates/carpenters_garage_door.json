@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"facing=north,open=false": { "model": "carpentersblocks:hatch/carpenters_hatch_open" },
+		"facing=east,open=false": { "model": "carpentersblocks:hatch/carpenters_hatch_open" },
+		"facing=south,open=false": { "model": "carpentersblocks:hatch/carpenters_hatch_open" },
+		"facing=west,open=false": { "model": "carpentersblocks:hatch/carpenters_hatch_open" },
+		"facing=north,open=true": { "model": "carpentersblocks:hatch/carpenters_hatch_top" },
+		"facing=east,open=true": { "model": "carpentersblocks:hatch/carpenters_hatch_top" },
+		"facing=south,open=true": { "model": "carpentersblocks:hatch/carpenters_hatch_top" },
+		"facing=west,open=true": { "model": "carpentersblocks:hatch/carpenters_hatch_top" }
+	}
+}
