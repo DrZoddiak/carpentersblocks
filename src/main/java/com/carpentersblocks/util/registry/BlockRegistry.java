@@ -411,7 +411,7 @@ public class BlockRegistry
         
         if(enableDaylightSensor) 
         {
-            GameRegistry.addRecipe(new ItemStack(blockCarpentersDaylightSensor, recipeQuantityDaylightSensor), new Object[] { "WWW", "XYX", "ZZZ", 'W', Blocks.GLASS, 'X', Items.REDSTONE, 'Y', new ItemStack(Items.DYE, 1, 4), 'Z', blockCarpentersBlock });
+            GameRegistry.addRecipe(new ItemStack(blockCarpentersDaylightSensor, recipeQuantityDaylightSensor), new Object[] { "WWW", "XYX", "ZZZ", 'W', Blocks.GLASS, 'Y', Items.REDSTONE, 'X', new ItemStack(Items.DYE, 1, 4), 'Z', blockCarpentersBlock });
         }
         
         if(enableFlowerPot) 

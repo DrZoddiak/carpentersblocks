@@ -7,7 +7,7 @@ public class Reference
 	//Mod Info
 	public static final String MOD_NAME = "Carpenter's Blocks";
 	public static final String MOD_ID = "carpentersblocks";
-	public static final String VERSION = "@VERSION@";
+	public static final String VERSION = "3.3.8.3";
 	public static final String CLIENT_PATH = "com.carpentersblocks.proxy.ClientProxy";
 	public static final String SERVER_PATH = "com.carpentersblocks.proxy.CommonProxy";
 	
@@ -61,6 +61,10 @@ public class Reference
     public static double itemHammerDamageChanceFromSlopes      = 0.75D;
     public static double itemHammerDamageChanceFromStairs      = 1.0D;
     public static double itemHammerDamageChanceFromCollapsible = 0.2D; 
+    
+    //block variables
+    public static int     slopeSmoothness           = 2;
+    public static int     multiBlockSizeLimit       = 500;
     
     //features
     public static boolean enableCovers              = true;
@@ -118,9 +122,7 @@ public class Reference
     public static int carpentersStairsRenderID;
     public static int carpentersTorchRenderID; 
     
+    //overlays
     public static ArrayList<String> overlayItems    = new ArrayList<String>();
     public static ArrayList<String> coverExceptions = new ArrayList<String>();
-
-    public static int     slopeSmoothness           = 2;
-    public static int     multiBlockSizeLimit       = 500;
 } 
