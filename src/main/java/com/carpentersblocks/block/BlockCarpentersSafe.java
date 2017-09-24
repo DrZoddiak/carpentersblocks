@@ -1,7 +1,10 @@
 package com.carpentersblocks.block;
 
+import com.carpentersblocks.block.state.Property;
 import com.carpentersblocks.block.types.BlockCoverable;
-import com.carpentersblocks.util.registry.BlockRegistry;
+import com.carpentersblocks.tileentity.CbTileEntity;
+import com.carpentersblocks.util.handler.ChatHandler;
+import com.carpentersblocks.util.registry.ItemRegistry;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -11,14 +14,13 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class BlockCarpentersSafe extends BlockCoverable  
 { 
@@ -35,7 +37,8 @@ public class BlockCarpentersSafe extends BlockCoverable
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] {LOCKED, FACING});
+		//return new BlockStateContainer(this, new IProperty[] {LOCKED, FACING});
+		return new ExtendedBlockState(this, new IProperty[] {LOCKED, FACING}, Property.unlistedProperties.toArray(new IUnlistedProperty[Property.unlistedProperties.size()]));
 	}
 	
 	@Override
@@ -99,4 +102,6 @@ public class BlockCarpentersSafe extends BlockCoverable
 		facing = placer.getHorizontalFacing();
 		return this.getDefaultState().withProperty(LOCKED, true).withProperty(FACING, facing);
 	} 
+	
+ 
 } 

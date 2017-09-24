@@ -12,8 +12,6 @@ import com.carpentersblocks.Reference;
 import com.carpentersblocks.block.types.BlockFacing;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.block.CollapsibleUtil;
-import com.carpentersblocks.util.registry.ItemRegistry;
-
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

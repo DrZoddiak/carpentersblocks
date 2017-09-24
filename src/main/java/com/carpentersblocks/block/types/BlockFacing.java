@@ -2,7 +2,6 @@ package com.carpentersblocks.block.types;
 
 import java.util.Arrays;
 
-import com.carpentersblocks.block.state.Property;
 import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.block.CollapsibleUtil;
 
@@ -15,11 +14,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.IExtendedBlockState;
 
-public abstract class BlockFacing extends BlockCoverable {
+public abstract class BlockFacing extends BlockCoverable 
+{
 
-    public BlockFacing(Material material) {
+    public BlockFacing(Material material)
+    {
         super(material);
     }
     
@@ -31,10 +31,14 @@ public abstract class BlockFacing extends BlockCoverable {
      * Checks to see if you can place this block can be placed on that side of a block: BlockLever overrides
      */
     @Override
-    public boolean canPlaceBlockOnSide(World world, BlockPos blockPos, EnumFacing facing) {
-        if (canAttachToFacing(facing)) {
+    public boolean canPlaceBlockOnSide(World world, BlockPos blockPos, EnumFacing facing) 
+    {
+        if (canAttachToFacing(facing))
+        {
         	return world.isSideSolid(blockPos.add(facing.getFrontOffsetX(), facing.getFrontOffsetY(), facing.getFrontOffsetZ()), facing);
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -43,7 +47,8 @@ public abstract class BlockFacing extends BlockCoverable {
     /**
      * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
      */
-    public IBlockState onBlockPlaced(World world, BlockPos blockPos, EnumFacing facing, float hitX, float hitY, float hitZ, int metadata, EntityLivingBase entityLivingBase) {
+    public IBlockState onBlockPlaced(World world, BlockPos blockPos, EnumFacing facing, float hitX, float hitY, float hitZ, int metadata, EntityLivingBase entityLivingBase) 
+    {
         return getDefaultState().withProperty(BlockDirectional.FACING, facing);
     }
     
@@ -51,11 +56,14 @@ public abstract class BlockFacing extends BlockCoverable {
     /**
      * Called when the block is placed in the world.
      */
-    public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase entityLivingBase, ItemStack itemStack) {
+    public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase entityLivingBase, ItemStack itemStack)
+    {
         super.onBlockPlacedBy(world, blockPos, blockState, entityLivingBase, itemStack);
-        if (!ignoreSidePlacement()) {
+        if (!ignoreSidePlacement())
+        {
             CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-            if (cbTileEntity != null) {
+            if (cbTileEntity != null)
+            {
             	CollapsibleUtil util = new CollapsibleUtil(cbTileEntity.getData());
                 EnumFacing facing = getPlacementDirection(blockState);
                 setFacing(cbTileEntity, facing);
@@ -73,7 +81,8 @@ public abstract class BlockFacing extends BlockCoverable {
      * @param z the z coordinate
      * @return the {@link ForgeDirection}
      */
-    protected EnumFacing getPlacementDirection(IBlockState blockState) {
+    protected EnumFacing getPlacementDirection(IBlockState blockState)
+    {
         return blockState.getValue(BlockDirectional.FACING);
     }
 
@@ -82,7 +91,8 @@ public abstract class BlockFacing extends BlockCoverable {
      *
      * @return <code>true</code> if initial placement direction ignored
      */
-    protected boolean ignoreSidePlacement() {
+    protected boolean ignoreSidePlacement()
+    {
         return false;
     }
 
@@ -90,7 +100,8 @@ public abstract class BlockFacing extends BlockCoverable {
     /**
      * How many world ticks before ticking
      */
-    public int tickRate(World world) {
+    public int tickRate(World world)
+    {
         return 20;
     }
 
@@ -99,11 +110,13 @@ public abstract class BlockFacing extends BlockCoverable {
      * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
      * their own) Args: x, y, z, neighbor blockID
      */
-    public void onNeighborChange(IBlockAccess blockAccess, BlockPos blockPos, BlockPos neighborBlockPos) {
+    public void onNeighborChange(IBlockAccess blockAccess, BlockPos blockPos, BlockPos neighborBlockPos)
+    {
         super.onNeighborChange(blockAccess, blockPos, neighborBlockPos);
         World world = (World)blockAccess;
         CbTileEntity cbTileEntity = getTileEntity(blockAccess, blockPos);
-        if (cbTileEntity != null && !canPlaceBlockOnSide(world, blockPos, getFacing(cbTileEntity)) && !canFloat()) {
+        if (cbTileEntity != null && !canPlaceBlockOnSide(world, blockPos, getFacing(cbTileEntity)) && !canFloat()) 
+        {
             //destroyBlock(world, blockPos, true);
         }
     }
@@ -117,7 +130,8 @@ public abstract class BlockFacing extends BlockCoverable {
      * @param  z
      * @return nothing
      */
-    public void notifyBlocksOfPowerChange(World world, IBlockState blockState, BlockPos blockPos) {
+    public void notifyBlocksOfPowerChange(World world, IBlockState blockState, BlockPos blockPos) 
+    {
     	// Strong power change
         world.notifyBlockOfStateChange(blockPos, this);
 
@@ -134,11 +148,14 @@ public abstract class BlockFacing extends BlockCoverable {
     }
 
     @Override
-    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, EnumFacing facing) {
+    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, EnumFacing facing) 
+    {
         int power = super.getWeakPower(blockState, blockAccess, blockPos, facing);
-        if (canProvidePower(blockState)) {
+        if (canProvidePower(blockState))
+        {
             CbTileEntity cbTileEntity = getTileEntity(blockAccess, blockPos);
-            if (cbTileEntity != null) {
+            if (cbTileEntity != null) 
+            {
                 power = Math.max(power, getPowerOutput(cbTileEntity));
             }
         }
@@ -146,12 +163,16 @@ public abstract class BlockFacing extends BlockCoverable {
     }
 
     @Override
-    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, EnumFacing facing) {
+    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, EnumFacing facing)
+    {
         int power = super.getStrongPower(blockState, blockAccess, blockPos, facing);
-        if (canProvidePower(blockState)) {
+        if (canProvidePower(blockState))
+        {
             CbTileEntity cbTileEntity = getTileEntity(blockAccess, blockPos);
-            if (cbTileEntity != null) {
-                if (facing.equals(getFacing(cbTileEntity))) {
+            if (cbTileEntity != null) 
+            {
+                if (facing.equals(getFacing(cbTileEntity))) 
+                {
                     power = Math.max(power, getPowerOutput(cbTileEntity));
                 }
             }
@@ -163,8 +184,10 @@ public abstract class BlockFacing extends BlockCoverable {
     /**
      * Ejects contained items into the world, and notifies neighbors of an update, as appropriate
      */
-    public void breakBlock(World world, BlockPos blockPos, IBlockState blockState) {
-        if (canProvidePower(blockState)) {
+    public void breakBlock(World world, BlockPos blockPos, IBlockState blockState)
+    {
+        if (canProvidePower(blockState))
+        {
             notifyBlocksOfPowerChange(world, blockState, blockPos);
         }
         super.breakBlock(world, blockPos, blockState);
@@ -176,7 +199,8 @@ public abstract class BlockFacing extends BlockCoverable {
      * @param  cbTileEntity  the {@link CbTileEntity}
      * @return the power output
      */
-    public int getPowerOutput(CbTileEntity cbTileEntity) {
+    public int getPowerOutput(CbTileEntity cbTileEntity)
+    {
     	return 0;
     }
 
@@ -186,7 +210,8 @@ public abstract class BlockFacing extends BlockCoverable {
      * @param  side the side
      * @return whether side is supported
      */
-    public boolean canAttachToFacing(EnumFacing facing) {
+    public boolean canAttachToFacing(EnumFacing facing) 
+    {
         return true;
     }
 
@@ -195,15 +220,19 @@ public abstract class BlockFacing extends BlockCoverable {
      *
      * @return whether block can float freely
      */
-    public boolean canFloat() {
+    public boolean canFloat() 
+    {
         return false;
     }
 
     @Override
-    public boolean rotateBlock(World world, BlockPos blockPos, EnumFacing axis) {
-        if (Arrays.asList(getRotationAxes()).contains(axis)) {
+    public boolean rotateBlock(World world, BlockPos blockPos, EnumFacing axis)
+    {
+        if (Arrays.asList(getRotationAxes()).contains(axis)) 
+        {
             CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-            if (cbTileEntity != null) {
+            if (cbTileEntity != null) 
+            {
                 EnumFacing facing = getFacing(cbTileEntity);
                 //return data.setFacing(cbTileEntity, facing.rotateAround(axis.getAxis()));
             }

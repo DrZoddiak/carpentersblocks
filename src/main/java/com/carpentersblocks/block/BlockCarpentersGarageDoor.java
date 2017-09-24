@@ -13,10 +13,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -162,6 +164,7 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 		open = !open;
 		if(open)
 		{
+			
 			while(world.getBlockState(blockPos.down()).getBlock().equals(this) && blockPos.getY() > 0)
 				blockPos = blockPos.down();
 			
@@ -170,22 +173,32 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 				world.setBlockToAir(blockPos);
 				blockPos = blockPos.up();
 			}
+			
 			world.setBlockState(blockPos, blockState.withProperty(FACING, blockState.getValue(FACING)).withProperty(OPEN, true));
+			world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1f, 1f, false);
 		}
 		else
 		{
+			world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1f, 1f, false);
 			blockPos = blockPos.down();
 			while(world.getBlockState(blockPos).getBlock().equals(Blocks.AIR) && blockPos.getY() >= 0)
 			{
 				world.setBlockState(blockPos, blockState.withProperty(FACING, blockState.getValue(FACING)).withProperty(OPEN, false));
 				blockPos = blockPos.down();
 			}
+			
 		}
 		return true;
 	}
 	
 	@Override
 	public boolean isFullBlock(IBlockState state) 
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isFullCube(IBlockState state) 
 	{
 		return false;
 	}
