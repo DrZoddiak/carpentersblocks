@@ -56,8 +56,8 @@ public class Reference
     public static boolean enableTile             = true;
     
     //tool variables
+    public static boolean itemCarpentersToolsDamageable        = true;
     public static int itemCarpentersToolsUses                  = 400;
-    public static boolean itemCarpentersToolsDamageable        = true; 
     public static double itemHammerDamageChanceFromSlopes      = 0.75D;
     public static double itemHammerDamageChanceFromStairs      = 1.0D;
     public static double itemHammerDamageChanceFromCollapsible = 0.2D; 

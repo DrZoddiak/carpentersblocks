@@ -1,5 +1,6 @@
 package com.carpentersblocks.block;
 
+import com.carpentersblocks.Reference;
 import com.carpentersblocks.block.types.BlockCoverable;
 
 import net.minecraft.block.Block;
@@ -33,7 +34,7 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 	
 	protected static final AxisAlignedBB EAST_CLOSED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
     protected static final AxisAlignedBB WEST_CLOSED_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-    protected static final AxisAlignedBB SOUTH_CLOSED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
+	protected static final AxisAlignedBB SOUTH_CLOSED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
     protected static final AxisAlignedBB NORTH_CLOSED_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB TOP_AABB = new AxisAlignedBB(0.0D, 0.8125D, 0.0D, 1.0D, 1.0D, 1.0D);
 	
@@ -241,20 +242,35 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 		blockPos = topleft;
 		
 		if(open)
-		{
-			for(int i=0; i<=rowSize;i++)
+		{	
+			Boolean nextRow = true;
+			int total = 0;
+			
+			for(int i=0; i<=rowSize; i++)
 			{
-				world.setBlockState(blockPos, this.getDefaultState().withProperty(OPEN, false).withProperty(FACING, facing));
-				world.playSound(entityPlayer, blockPos, SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1f, 1f);
-				while(blockPos.getY() > 0 && world.getBlockState(blockPos.down()).getBlock().equals(Blocks.AIR))
+				if(world.getBlockState(blockPos).getBlock().equals(this))
 				{
-					blockPos = blockPos.down();
-					world.setBlockState(blockPos, this.getDefaultState().withProperty(FACING, facing).withProperty(OPEN, false));
+					world.playSound(entityPlayer, blockPos, SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1f, 1f);
 				}
+				world.setBlockState(blockPos, this.getDefaultState().withProperty(FACING, facing).withProperty(OPEN, false));
+				total++;
 				
-				blockPos = new BlockPos(blockPos.getX(), topleft.getY(), blockPos.getZ());
-				switch(left.getOpposite())
+				if(!world.getBlockState(blockPos.down()).getBlock().equals(Blocks.AIR))
+					nextRow = false;
+				
+				
+				
+				if(i==rowSize)
 				{
+					if(!nextRow || blockPos.getY()-1 < 0 || (total+rowSize+1) > Reference.multiBlockSizeLimit)
+						break;
+					blockPos = new BlockPos(topleft.getX(), blockPos.getY()-1, topleft.getZ());
+					i=-1;
+				}
+				else
+				{
+					switch(left.getOpposite())
+					{
 					case NORTH:
 						blockPos = blockPos.north();
 						break;
@@ -267,6 +283,7 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 					case WEST:
 						blockPos = blockPos.west();
 						break;
+					}
 				}
 			}
 		}
@@ -282,7 +299,7 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 				
 				int minY = blockPos.getY();
 				
-				while(blockPos.getY() > 0 && world.getBlockState(blockPos.up()).getBlock().equals(this))
+				while(blockPos.getY() >= 0 && world.getBlockState(blockPos.up()).getBlock().equals(this))
 				{
 					 
 					world.setBlockToAir(blockPos);
