@@ -31,13 +31,6 @@ public class ClientProxy extends CommonProxy
         CarpentersBlocksCachedResources.INSTANCE.init();
         BlockRegistry.registerRenderers();
     	//Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(CbBlockColor.INSTANCE, BlockRegistry.blockCarpentersBlock);
-    	
-        // TODO: Check if these are needed
-        //if (FMLClientHandler.instance().hasOptifine()) {
-        //    OptifineHandler.init();
-        //}
-
-        //ShadersHandler.init();
 
         // Register entity renderers
         //RenderingRegistry.registerEntityRenderingHandler(EntityCarpentersTile.class, new RenderCarpentersTile());

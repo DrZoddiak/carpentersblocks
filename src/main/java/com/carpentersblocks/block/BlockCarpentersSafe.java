@@ -6,6 +6,7 @@ import com.carpentersblocks.tileentity.CbTileEntity;
 import com.carpentersblocks.util.handler.ChatHandler;
 import com.carpentersblocks.util.registry.ItemRegistry;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -14,9 +15,11 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -37,7 +40,6 @@ public class BlockCarpentersSafe extends BlockCoverable
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		//return new BlockStateContainer(this, new IProperty[] {LOCKED, FACING});
 		return new ExtendedBlockState(this, new IProperty[] {LOCKED, FACING}, Property.unlistedProperties.toArray(new IUnlistedProperty[Property.unlistedProperties.size()]));
 	}
 	
@@ -103,5 +105,27 @@ public class BlockCarpentersSafe extends BlockCoverable
 		return this.getDefaultState().withProperty(LOCKED, true).withProperty(FACING, facing);
 	} 
 	
- 
+	@Override
+	public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer entityPlayer,
+			EnumHand hand, ItemStack itemStack, EnumFacing facing, float hitX, float hitY, float hitZ) 
+	{
+		if(itemStack == null && blockState.getValue(LOCKED).booleanValue() && !world.isRemote && hand.equals(EnumHand.MAIN_HAND))
+		{
+			ChatHandler.sendMessageToPlayer("message.block_lock.name", entityPlayer);
+		}
+		return super.onBlockActivated(world, blockPos, blockState, entityPlayer, hand, itemStack, facing, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	protected boolean onHammerRightClick(CbTileEntity cbTileEntity, EntityPlayer entityPlayer) 
+	{ 
+			World world = entityPlayer.worldObj;
+			BlockPos pos = cbTileEntity.getPos();
+			Boolean locked = world.getBlockState(pos).getValue(LOCKED);
+			world.setBlockState(pos, this.getDefaultState().withProperty(FACING, world.getBlockState(pos).getValue(FACING)).withProperty(LOCKED, !locked));
+			locked = !locked;
+			if(!world.isRemote)
+				ChatHandler.sendMessageToPlayer(locked == true ? "message.safe_lock.name":"message.safe_unlock.name", entityPlayer);
+			return true; 
+	}
 } 
