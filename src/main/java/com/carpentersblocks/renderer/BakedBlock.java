@@ -18,7 +18,8 @@ public class BakedBlock extends AbstractBakedModel
     
 	@Override
 	protected void fillQuads(QuadContainer quadContainer)
-	{	
+	{
+		
 		RenderHelper renderHelper = new RenderHelper();
 		quadContainer.add(renderHelper.getQuadYNeg());
 		quadContainer.add(renderHelper.getQuadYPos());
