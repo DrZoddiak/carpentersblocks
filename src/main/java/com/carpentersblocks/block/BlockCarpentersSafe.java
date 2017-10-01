@@ -7,6 +7,7 @@ import com.carpentersblocks.util.handler.ChatHandler;
 import com.carpentersblocks.util.registry.ItemRegistry;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -27,7 +28,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class BlockCarpentersSafe extends BlockCoverable  
 { 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool LOCKED = PropertyBool.create("locked");  
 	
 	public BlockCarpentersSafe(Material material) 
