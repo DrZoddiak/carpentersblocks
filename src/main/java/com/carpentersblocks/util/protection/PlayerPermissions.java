@@ -73,7 +73,7 @@ public class PlayerPermissions
         }
         catch (IllegalArgumentException e) 
         {
-            return object.getOwner().equals(entityPlayer.getDisplayName());
+            return object.getOwner().equals(entityPlayer.getDisplayNameString());
         }
     }
 }
