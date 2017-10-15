@@ -1080,14 +1080,11 @@ public abstract class BlockFlowerpot extends BlockFlowerPot
     @Override
     public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase entityLivingBase, ItemStack itemStack)
     {
-        if (!world.isRemote) 
-        {
-            CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
-            if (cbTileEntity != null)
-            {
-                cbTileEntity.setOwner(new ProtectedObject((EntityPlayer)entityLivingBase));
-            }
-        }
+    	CbTileEntity cbTileEntity = getTileEntity(world, blockPos);
+    	if (cbTileEntity != null)
+    	{
+    		cbTileEntity.setOwner(new ProtectedObject((EntityPlayer)entityLivingBase));
+    	}
     }
 
     // Below method is likely inherited from base block state

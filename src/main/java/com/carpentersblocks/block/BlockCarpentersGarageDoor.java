@@ -144,6 +144,12 @@ public class BlockCarpentersGarageDoor extends BlockCoverable
 			int meta, EntityLivingBase placer) 
 	{
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, true);
+	} 
+	
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		// TODO Auto-generated method stub
+		super.breakBlock(worldIn, pos, state);
 	}
 	
 	@Override
